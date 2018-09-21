@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html class="loading" lang="en" data-textdirection="ltr">
+<style type="text/css"> 
+<!-- 
+legend{ 
+background-color: #ffffff; 
+} 
+fieldset { 
+text-align:center;
+width: 450px; 
+margin: 0 auto; 
+padding-top: 10px; 
+padding-bottom: 20px; 
+padding-left: 30px; 
+} 
+fieldset input { 
+width: 250px; 
+} 
+--> 
+</style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  
+  <title>論文系統</title>
+
+ 
+</head>
+<body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page"
+data-open="click" data-menu="vertical-menu" data-col="1-column">
+  <!-- ////////////////////////////////////////////////////////////////////////////-->
+<section class="flexbox-container">
+          <div class="card border-grey border-lighten-3 m-0" style="text-align:center;">
+                <div class="card-header border-0">
+                  <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                    <span><font size="15">Login</font></span>
+                  </h6>
+                </div>
+                <div class="card-body">
+                    <form class="form-horizontal form-simple" action="ajax/member/login.php" method="POST" novalidate >
+                      <fieldset class="UserName">
+                        <input type="text" class="form-control form-control-lg" id="user-name" name="name" placeholder="Your Username"
+                        required>
+                      </fieldset>
+                      <fieldset class="Password">
+                        <input type="password" class="form-control form-control-lg" id="user-password" name="password" placeholder="Enter Password"
+                        required>
+                      </fieldset>
+                      <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
+                    </form>
+                  </div>
+              </div>
+        </section>       
+</body>
+</html>
