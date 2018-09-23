@@ -18,6 +18,9 @@ if($_SESSION['user'] == ""){
 		case "NewMethod":
 			include('view/NewMethod.html');
 		break;
+		case "ShowAlgorithm":
+			include('view/ShowAlgorithm.html');
+		break;
 		
 		default:
 		break;
