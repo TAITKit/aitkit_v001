@@ -1,4 +1,25 @@
 <!DOCTYPE html>
+<style type="text/css">
+	fieldset {
+  margin-left: 0;
+  width: 400px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+</style>
 <html>
-<h3 class="Topic">演算法列表</h3>
+<fieldset>
+  <legend>演算法列表:</legend>
+  <?php 
+  	$praetor = new Praetor();
+	$sql = "SELECT * FROM algorithm";
+	$data = $praetor->custosql($sql, array());
+	foreach($data as $algorithm)
+	{
+
+		echo "<a href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['AlgorithmTitle']."</a><br>";
+	}
+  ?>
+ </fieldset>
 </html>
