@@ -5,7 +5,7 @@ class Fisher{
 	var $db;
 
 	//建構函式
-	public function Project(){
+	public function Fisher(){
 		$this->db = new MeekroDB(SYSTEM_DBHOST, SYSTEM_DBNAME_FISHER, SYSTEM_DBUSER, SYSTEM_DBPWD);
 		return true;
 	}

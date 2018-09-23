@@ -5,8 +5,8 @@ class Praetor{
 	var $db;
 
 	//建構函式
-	public function Project(){
-		$this->db = new MeekroDB(SYSTEM_DBHOST, SYSTEM_DBNAME_PRAETOR, SYSTEM_DBUSER, SYSTEM_DBPWD);
+	public function Praetor(){
+		$this->db = new MeekroDB(SYSTEM_DBHOST, SYSTEM_DBUSER, SYSTEM_DBPWD, SYSTEM_DBNAME_PRAETOR);
 		return true;
 	}
 	public function custosql($sql, $dataArray){

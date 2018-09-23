@@ -1,11 +1,16 @@
 <?php
 	session_start();
-	if($_POST['name'] == "admin" && $_POST['password'] == "1111"){
-		$_SESSION['user'] = $_POST['name'];
+	include('../../model/ajax_model.php');
+	$praetor = new Praetor();
+	$sql = "SELECT * FROM pmanager WHERE PID=%d_PID AND Password =%s_Password";
+	$data = $praetor->custosql($sql, array('PID'=>$_POST['name'], 'Password'=>$_POST['password']));
+	
+	if($data[0] != ""){
+		$_SESSION['user'] = $data[0];
+
 		echo "<script>location.href='../../index.php';</script>";
 	}else{
-		echo "<script>alert('帳號密碼錯誤')</script>";
-		echo "<script>location.href='../../index.php';</script>";
+		alert_message('../../index.php','帳號密碼錯誤');
 	}
 
 ?>
