@@ -1,6 +1,36 @@
 <!DOCTYPE html>
+<style type="text/css">
+	fieldset {
+  margin-left: 0;
+  width: 400px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+
+</style>
 <html>
 <h3 class="Topic">教授資訊</h3>
+ <fieldset>
+  <legend>教授資訊:</legend>
+  學校: <?php echo $_SESSION['user']['Institute'];?><br>
+  姓名: <?php echo $_SESSION['user']['PMName'];?><br>
+ </fieldset>
+ <fieldset>
+  <legend>演算法列表:</legend>
+  <?php 
+  	$praetor = new Praetor();
+	$sql = "SELECT * FROM algorithm WHERE OwnerPID=%d_OwnerPID";
+	$data = $praetor->custosql($sql, array('OwnerPID'=>$_SESSION['user']['PID']));
+	foreach($data as $algorithm)
+	{
+
+		echo "<a href='index.php?item=ShowAlgorithm'>".$algorithm['AlgorithmTitle']."</a><br>";
+	}
+  ?>
+ </fieldset>
+
 <form action="index.php?item=NewMethod" method="post">
 <div class="new method">
 	<button type="submit" class="button">
