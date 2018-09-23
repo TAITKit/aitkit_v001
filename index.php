@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('model/model.php');
 if($_SESSION['user'] == ""){
 	include('view/login.html');
 }else{
