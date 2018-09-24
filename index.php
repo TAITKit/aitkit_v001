@@ -21,6 +21,9 @@ if($_SESSION['user'] == ""){
 		case "ShowAlgorithm":
 			include('view/ShowAlgorithm.html');
 		break;
+		case "addNewMethod":
+			include('model/newMethod.php');
+		break;
 		
 		default:
 		break;

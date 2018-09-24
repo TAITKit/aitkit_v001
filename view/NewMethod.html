@@ -51,7 +51,7 @@ input[type="file"] {
 
 <html>
 <div class="form-group">
-	<form>
+	<form action="index.php?item=addNewMethod" method="post" enctype="multipart/form-data">
 	<div>
                               <label for="issueinput1">Praetor's Information</label>
                               <input type="text" id="issueinput1" class="form-control" name="praetorInfo" placeholder="請輸入學校/姓名">
@@ -65,7 +65,8 @@ input[type="file"] {
                               <label for="file-upload" class="custom-file-upload">
     <i class="upload-font"></i>選擇檔案
 </label>
-<input id="file-upload" type="file"/>
+<input id="file-upload" type="file" name="myfile"/>
+<input type="hidden" name="max_file_size" value="102400000">
                           </div>
                           <div>
 							  <label for="issueinput4">Source Code</label>
