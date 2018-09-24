@@ -13,12 +13,11 @@
   <legend>演算法列表:</legend>
   <?php 
   	$praetor = new Praetor();
-	$sql = "SELECT * FROM algorithm";
+	$sql = "SELECT * FROM algorithm ORDER BY AlgorithmTitle";
 	$data = $praetor->custosql($sql, array());
 	foreach($data as $algorithm)
 	{
-
-		echo "<a href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['AlgorithmTitle']."</a><br>";
+		echo "<a href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['AlgorithmTitle'] ."</a><br>";
 	}
   ?>
  </fieldset>

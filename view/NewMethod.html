@@ -37,9 +37,7 @@ textarea {
 button {
   margin-left: .5em;
 }
-input[type="file"] {
-    display: none;
-}
+
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -53,8 +51,8 @@ input[type="file"] {
 <div class="form-group">
 	<form action="index.php?item=addNewMethod" method="post" enctype="multipart/form-data">
 	<div>
-                              <label for="issueinput1">Praetor's Information</label>
-                              <input type="text" id="issueinput1" class="form-control" name="praetorInfo" placeholder="請輸入學校/姓名">
+                              <label for="issueinput1">Algorithm's title</label>
+                              <input type="text" id="issueinput1" class="form-control" name="titleInfo" placeholder="請輸入標題">
                           </div>
                           <div>
 							  <label for="issueinput2">Server Daemon's Information</label>
@@ -62,9 +60,7 @@ input[type="file"] {
                           </div>
                           <div>
 							  <label for="issueinput3">Algorithm's Description</label>
-                              <label for="file-upload" class="custom-file-upload">
-    <i class="upload-font"></i>選擇檔案
-</label>
+                              
 <input id="file-upload" type="file" name="myfile"/>
 <input type="hidden" name="max_file_size" value="102400000">
                           </div>
