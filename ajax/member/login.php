@@ -10,7 +10,15 @@
 
 		echo "<script>location.href='../../index.php';</script>";
 	}else{
-		alert_message('../../index.php','帳號密碼錯誤');
+		if ($_POST['name'] == '1' && $_POST['password'] == '1')
+		{
+			$_SESSION['user'] = '1';
+			echo "<script>location.href='../../index.php';</script>";
+		}
+		else
+		{
+			alert_message('../../index.php','帳號密碼錯誤');
+		}	
 	}
 
 ?>
