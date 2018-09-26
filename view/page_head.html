@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  
+  <title>論文系統</title>
 <style>
 body {
   margin: 0;
@@ -14,7 +19,7 @@ body {
 }
 
 .topnav a {
-  float: left;
+  float: right;
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
@@ -36,9 +41,33 @@ body {
 <body>
 
 <div class="topnav">
-  <a class="<?php echo ($_GET['item'] == 'News') ? 'active':''; ?>" href="?item=News">News</a>
-  <a class="<?php echo ($_GET['item'] == 'DeepLearningMethods') ? 'active':''; ?>" href="?item=DeepLearningMethods">DeepLearningMethods</a>
+  <?php 
+    if ($_SESSION['user'] != "")
+    {
+      ?>
+  <a class="<?php echo ($_GET['item'] == 'praetorLogin') ? 'active':''; ?>" href="?item=praetorLogin">Teacher info</a>
+  <?php
+    }
+  ?>
+  <a class="<?php echo ($_GET['item'] == 'Register') ? 'active':''; ?>" href="?item=Register">Register</a>
+  <?php 
+    if ($_SESSION['user'] == "")
+    {
+      ?>
   <a class="<?php echo ($_GET['item'] == 'Login') ? 'active':''; ?>" href="?item=Login">Login</a>
+  <?php 
+    }
+    else
+    {
+    ?>
+    <a class="<?php echo ($_GET['item'] == 'Logout') ? 'active':''; ?>" href="?item=Logout">Logout</a>
+    <?php
+    }
+    ?>
+  <a class="<?php echo ($_GET['item'] == 'DeepLearningMethods') ? 'active':''; ?>" href="?item=DeepLearningMethods">DeepLearningMethods</a>
+  <a class="<?php echo ($_GET['item'] == 'News') ? 'active':''; ?>" href="?item=News">News</a>
+  <a class="<?php echo ($_GET['item'] == '') ? 'active':''; ?>" href="index.php">首頁</a>
+  
 </div>
 
 
