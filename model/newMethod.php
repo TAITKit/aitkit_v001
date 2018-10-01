@@ -48,6 +48,66 @@ $praetor = new Praetor();
 	//print_r($licenseKey);
 	//echo "<script>alert('".$licenseKey."');</script>";
 	//echo "<script>location.href='index.php?item=praetorLogin';</script>";
+//傳送email給老師
+	require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/POP3.php';
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/OAuth.php';
+require 'PHPMailer/language/phpmailer.lang-ja.php';
+
+//公式通り
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+//require_once ( 'PHPMailer/PHPMailerAutoload.php' );
+$subject = "您已成功上傳演算法，以下為您的上傳資訊";
+$from = "yuzuriha4nerine@gmail.com";
+$smtp_user = "yuzuriha4nerine@gmail.com";
+$smtp_password = "@1a1b1c1d";
+
+$mail = new PHPMailer(true);
+$mail->IsSMTP();
+//$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+$mail->SMTPAuth = true;
+$mail->CharSet = 'utf-8';
+$mail->SMTPSecure = 'tls';
+$mail->Host = "smtp.gmail.com";
+$mail->Port = 587;
+$mail->IsHTML(true);
+$mail->Username = $smtp_user;
+$mail->Password = $smtp_password; 
+$mail->SetFrom($smtp_user);
+$mail->From     = "yuzuriha4nerine@gmail.com";
+$mail->Subject = $subject;
+$mail->Body = "<div><label>您已成功上傳演算法，以下為您的上傳資訊：</label></div><div>
+                              <label>Algorithm's title:</label>
+                              <label>".$_POST['titleInfo']."</label>
+                          </div>
+                          <div>
+							  <label>Server Daemon's Information:</label>
+							  <label>".$_POST['serverInfo']."</label>
+                          </div>
+                          <div>
+							  <label>Algorithm's Description:</label>
+							  <label>".$_FILES['myfile']['name']."</label>
+                          </div>
+                          <div>
+							  <label>Source Code:</label>
+							  <label>".$_POST['github']."</label>
+                          </div>
+                          <div>
+							  <label>License key:</label>
+							  <label>".$licenseKey."</label>
+                          </div>";
+$mail->AddAddress($_SESSION['user']['Email']);
+
+if( !$mail -> Send() ){
+    $message  = "Message was not sent<br/ >";
+    $message .= "Mailer Error: " . $mailer->ErrorInfo;
+} else {
+    $message  = "Message has been sent";
+}
+
 
 ?>
 
@@ -110,15 +170,15 @@ button {
                               <label><?php echo $_POST['titleInfo'];?></label>
                           </div>
                           <div>
-							  <label>Server Daemon's Information</label>
+							  <label>Server Daemon's Information:</label>
 							  <label><?php echo $_POST['serverInfo'];?></label>
                           </div>
                           <div>
-							  <label>Algorithm's Description</label>
+							  <label>Algorithm's Description:</label>
 							  <label><?php echo $_FILES['myfile']['name'];?></label>
                           </div>
                           <div>
-							  <label>Source Code</label>
+							  <label>Source Code:</label>
 							  <label><?php echo $_POST['github'];?></label>
                           </div>
                           <div>
