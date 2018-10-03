@@ -21,30 +21,42 @@ if(file_exists(iconv("utf-8", "big5", $uploadfile)))
 }
 $praetor = new Praetor();
 	$algorithmID = mt_rand(0, 10000);
-	$praetor->custoinsert('algorithm', array('AID'=> $algorithmID, 'OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'PdfFileName'=>$_FILES['myfile']['name'], 'Logo'=>'logo.png','StimulusType'=>'int', 'ServerIP'=>$_POST['serverInfo']));
-	$licenseKey = $_SESSION['user']['PMName'][0];
-	$userLenth = strlen($_SESSION['user']['PMName']);
-	$n = 1;
-	while ($n < $userLenth) {
-		if ($_SESSION['user']['PMName'][$n] == ' ' && $n + 1 != $userLenth)
-		{
-			$licenseKey = $licenseKey.$_SESSION['user']['PMName'][$n + 1];
-		}
-		$n = $n + 1;
+	$praetor->custoinsert('algorithm', array('AID'=> $algorithmID, 'OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'PdfFileName'=>$_FILES['myfile']['name'], 'Logo'=>'logo.png','StimulusType'=>'int', 'ServerIP'=>$_POST['serverInfo'], 'Abbreviation'=>$_POST['titleAbbre']));
+	//$licenseKey = $_SESSION['user']['PMName'][0];
+	// $userLenth = strlen($_SESSION['user']['PMName']);
+	// $n = 1;
+	// while ($n < $userLenth) {
+
+	// 	if ($_SESSION['user']['PMName'][$n] == ' ' && $n + 1 != $userLenth)
+	// 	{
+	// 		$licenseKey = $licenseKey.$_SESSION['user']['PMName'][$n + 1];
+	// 	}
+	// 	$n = $n + 1;
+	// }
+	// $licenseKey = $licenseKey.'_'.$_POST['titleInfo'][0];
+	// $titleLenth = strlen($_POST['titleInfo']);
+	// $n = 1;
+	// while ($n < $titleLenth) {
+	// 	if ($_POST['titleInfo'][$n] == ' ' && $n + 1 != $titleLenth)
+	// 	{
+	// 		$licenseKey = $licenseKey.$_POST['titleInfo'][$n + 1];
+	// 	}
+	// 	$n = $n + 1;
+	// }
+
+	$licenseKey = strtoupper($_SESSION['user']['PMName'][0].substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], '-') + 1, 1).substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], ' ') + 1));
+	if (strpos($_POST['titleAbbre'], ' ')  !== false)
+	{
+		$licenseKey = $licenseKey.'_'.strtoupper(substr($_POST['titleAbbre'], 0, strpos($_POST['titleAbbre'], ' ')));
 	}
-	$licenseKey = $licenseKey.'_'.$_POST['titleInfo'][0];
-	$titleLenth = strlen($_POST['titleInfo']);
-	$n = 1;
-	while ($n < $titleLenth) {
-		if ($_POST['titleInfo'][$n] == ' ' && $n + 1 != $titleLenth)
-		{
-			$licenseKey = $licenseKey.$_POST['titleInfo'][$n + 1];
-		}
-		$n = $n + 1;
+	else
+	{
+		$licenseKey = $licenseKey.'_'.strtoupper($_POST['titleAbbre']);
 	}
+
 	$sql = "SELECT * FROM algorithm WHERE AID=%s_AID";
 	$data = $praetor->custosql($sql, array('AID'=>$algorithmID));
-	$licenseKey = $licenseKey.'_'.$data[0]['Portnumber'];
+	$licenseKey = $licenseKey.'@'.$data[0]['Portnumber'];
 	//print_r($licenseKey);
 	//echo "<script>alert('".$licenseKey."');</script>";
 	//echo "<script>location.href='index.php?item=praetorLogin';</script>";
@@ -82,6 +94,10 @@ $mail->Subject = $subject;
 $mail->Body = "<div><label>您已成功上傳演算法，以下為您的上傳資訊：</label></div><div>
                               <label>Algorithm's title:</label>
                               <label>".$_POST['titleInfo']."</label>
+                          </div>
+                          <div>
+							  <label>Abbreviation:</label>
+							  <label>".$_POST['titleAbbre']."</label>
                           </div>
                           <div>
 							  <label>Server Daemon's Information:</label>
@@ -168,6 +184,10 @@ button {
 	<div>
                               <label>Algorithm's title:</label>
                               <label><?php echo $_POST['titleInfo'];?></label>
+                          </div>
+                          <div>
+							  <label>Abbreviation:</label>
+							  <label><?php echo $_POST['titleAbbre'];?></label>
                           </div>
                           <div>
 							  <label>Server Daemon's Information:</label>
