@@ -55,6 +55,12 @@ if($_SESSION['user'] == ""){
 		case "Register":
 			include('view/register.html');
 		break;
+		case "editAlgorithm":
+			include('view/editAlgorithm.html');
+		break;
+		case "editAlgorithmPHP":
+			include('model/editAlgorithm.php');
+		break;
 		default:
 		break;
 	}

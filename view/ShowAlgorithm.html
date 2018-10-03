@@ -53,7 +53,8 @@ button {
 
 <html>
 <div class="form-group">
-	<form action="index.php?item=praetorLogin" method="post">
+	
+	<form action="index.php?item=editAlgorithm" method="post">
 		<?php 
 			$praetor = new Praetor();
 	$sql = "SELECT * FROM algorithm WHERE AlgorithmTitle=%s_AlgorithmTitle";
@@ -62,6 +63,13 @@ button {
 		<h3><?php echo $_SESSION['user']['PMName'];?></h3>
 <h3><?php echo $_SESSION['user']['Institute'];?></h3>
 <h4 style="color: black;">App information:</h4>
+
+	<div>
+	<input type="hidden" name="AID" value="<?php echo $data[0]['AID'];?>">
+                          <button type="submit" class="button">
+        					<i class="add button">更改資料</i> 
+    					</button>
+    				</div>
 	<div>
                               <h4>Algorithm's title:</h4>
                               <label><?php echo $_GET['title'];?></label>
@@ -100,9 +108,7 @@ button {
 							  <label>Port:<?php echo $data[0]['Portnumber'];?></label>
                           </div>
                           <div>
-                          <button type="submit" class="button">
-        					<i class="add button"></i> 確定
-    					</button>
+                          
     				</div>
 
                       </form>
