@@ -57,9 +57,11 @@ $praetor = new Praetor();
 	$sql = "SELECT * FROM algorithm WHERE AID=%s_AID";
 	$data = $praetor->custosql($sql, array('AID'=>$algorithmID));
 	$licenseKey = $licenseKey.'@'.$data[0]['Portnumber'];
+	$praetor->custoupdate('algorithm', array('LicenseKey'=>$licenseKey), "AID=%s", $algorithmID);
 	//print_r($licenseKey);
 	//echo "<script>alert('".$licenseKey."');</script>";
 	//echo "<script>location.href='index.php?item=praetorLogin';</script>";
+
 //傳送email給老師
 	require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -114,6 +116,11 @@ $mail->Body = "<div><label>您已成功上傳演算法，以下為您的上傳�
                           <div>
 							  <label>License key:</label>
 							  <label>".$licenseKey."</label>
+                          </div>
+                          <div>
+							  <h4>Local Daemon Info:</h4>
+							  <label>IP:".$_POST['serverInfo']."</label>
+							  <label>Port:".$data[0]['Portnumber']."</label>
                           </div>";
 $mail->AddAddress($_SESSION['user']['Email']);
 
