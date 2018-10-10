@@ -14,8 +14,8 @@ form div + div {
 
 label {
   display: inline-block;
-  width: 90px;
-  text-align: center;
+  
+  text-align: left;
 }
 
 h4 {
@@ -60,8 +60,8 @@ button {
 	$sql = "SELECT * FROM algorithm WHERE AlgorithmTitle=%s_AlgorithmTitle";
 	$data = $praetor->custosql($sql, array('AlgorithmTitle'=>$_GET['title']));
 		?>
-		<h3><?php echo $_SESSION['user']['PMName'];?></h3>
-<h3><?php echo $_SESSION['user']['Institute'];?></h3>
+		<h3>Name:<?php echo $_SESSION['user']['PMName'];?></h3>
+<h3>Unit:<?php echo $_SESSION['user']['Institute'];?></h3>
 <h4 style="color: black;">App information:</h4>
 
 	<div>
@@ -84,18 +84,24 @@ button {
                           </div>
                           <div>
 							  <h4>Source Code:</h4>
-							  <label><?php echo $data[0]['GitHub'];?></label>
+							  <a href='<?php echo $data[0]['GitHub'];?>'><?php echo $data[0]['GitHub'];?></a>
+                          </div>
+                          <div>
+                <h4>Data Set:</h4>
+                <a href='https://github.com/TAITKit/Discourse_Data'>https://github.com/TAITKit/Discourse_Data</a>
                           </div>
                           <div>
                           	<label for="input">Input Format:</label>
 								<select id="inputFormat" name="inputFormat" class="format">
 								  <option value="">請選擇</option>
+                  <option value="">text</option>
 								</select>
                           </div>
                           <div>
                           	<label for="output">Output Format:</label>
 								<select id="outputFormat" name="outputFormat" class="format">
 								  <option value="">請選擇</option>
+                  <option value="">html</option>
 								</select>
                           </div>
                           <div>
@@ -104,8 +110,13 @@ button {
                           </div>
                            <div>
 							  <h4>Local Daemon Info:</h4>
-							  <label>IP:<?php echo $data[0]['ServerIP'];?></label>
-							  <label>Port:<?php echo $data[0]['Portnumber'];?></label>
+                <div>
+                  IP:<label style="color: red">x.x.x.x Not Register</label>
+                </div>
+                <div>
+                  Port:<label style="color: red">---- Not Register</label>
+                </div>
+							  
                           </div>
                           <div>
                           
