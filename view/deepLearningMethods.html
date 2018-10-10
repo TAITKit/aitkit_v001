@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <style type="text/css">
 	fieldset {
-  margin-left: 0;
-  width: 400px;
+  margin: 0 auto;
+  width: 700px;
   padding: 1em;
   border: 1px solid #CCC;
   border-radius: 1em;
@@ -10,14 +10,18 @@
 </style>
 <html>
 <fieldset>
-  <legend>演算法列表:</legend>
+  <legend>DeepLearningMethodList:</legend>
   <?php 
   	$praetor = new Praetor();
 	$sql = "SELECT * FROM algorithm ORDER BY AlgorithmTitle";
 	$data = $praetor->custosql($sql, array());
 	foreach($data as $algorithm)
 	{
-		echo "<a href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['AlgorithmTitle'] ."</a><br>";
+    if ($algorithm['OwnerPID'] != 0)
+    {
+        echo "<div>Abbr:<a style ='color: black' href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['Abbreviation'] ."</a><label style='color: blue'>&nbsp;&nbsp;(NLP)</label></div><div>Title:<label>".$algorithm['AlgorithmTitle']."</label></div><div>Input/Output:<label style='color: green'>".$algorithm['Input']."/".$algorithm['Output']."</label></div><br>";
+    }
+  
 	}
   ?>
  </fieldset>
