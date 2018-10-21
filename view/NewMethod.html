@@ -166,8 +166,7 @@ button {
     <button type="button" class="addParemeter">
 +新增
 </button>                      
-                           </div>
-                            
+                           </div>                
                           </fieldset>
                           <div>
                           <button type="submit" class="button">
@@ -191,7 +190,10 @@ button {
     })
       
     $(".allowInput").change(function (){
+      var elements = document.getElementsByName( "acceptParemeter" );
       $(".inputAllowed").toggle();
+      elements[0].checked = false;
+      elements[1].checked = true;
       $(".paremeterAllowed").hide();
       });
     $(".allowParemeter").change(function (){
