@@ -79,6 +79,22 @@ $praetor = new Praetor();
 
             		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
             }
+
+            $sql = "SELECT * FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
+            $paremeterData = $praetor->custosql($sql, array('algorithmID'=>'-1'));
+            if ($paremeterData)
+            {
+            	$n = 0;
+            	while ($n <= $paremeterData[0]['no'])
+            	{
+            		$paremeterWhere = new WhereClause('and'); // create a WHERE statement of pieces joined by ANDs
+					$paremeterWhere->add('algorithmID=%s', '-1');
+					$paremeterWhere->add('no=%d', $n);
+            		$praetor->custoupdate('Paremeter', array('paremeter'=>$_POST['paremeterName'.$n], 'paremeterRange'=>$_POST['paremeterRange'.$n], 'function'=>$_POST['paremeterDescription'.$n], 'format'=>$_POST['paremeterFormat'.$n]), "%l", $paremeterWhere);
+            		$n = $n + 1;
+            	}
+            		$praetor->custoupdate('Paremeter', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
+            }
 	        
 
 

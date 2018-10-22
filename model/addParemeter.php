@@ -14,7 +14,7 @@ include('../cls/Praetor.cls.php');
             {
             	$number = 0;
             }
-            //$praetor->custoinsert('dataSet', array('algorithmID'=>'-1', 'no'=> $number));
+            $praetor->custoinsert('Paremeter', array('algorithmID'=>'-1', 'no'=> $number));
             echo '<div>
                             <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
 <tr>
