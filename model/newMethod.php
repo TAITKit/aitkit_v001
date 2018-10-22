@@ -59,10 +59,27 @@ $praetor = new Praetor();
 	$data = $praetor->custosql($sql, array('AID'=>$algorithmID));
 	$licenseKey = $licenseKey.'@'.$data[0]['Portnumber'];
 	$praetor->custoupdate('algorithm', array('LicenseKey'=>$licenseKey), "AID=%s", $algorithmID);
+	
 	//print_r($licenseKey);
 	//echo "<script>alert('".$licenseKey."');</script>";
 	//echo "<script>location.href='index.php?item=praetorLogin';</script>";
+	$sql = "SELECT no FROM dataSet WHERE algorithmID=%d_algorithmID ORDER BY no desc";
+            $dataSetData = $praetor->custosql($sql, array('algorithmID'=>'-1'));
+            if ($dataSetData)
+            {
+            	$n = 0;
+            	while ($n <= $dataSetData[0]['no'])
+            	{
+            		$dataSetWhere = new WhereClause('and'); // create a WHERE statement of pieces joined by ANDs
+					$dataSetWhere->add('algorithmID=%s', '-1');
+					$dataSetWhere->add('no=%d', $n);
+            		$praetor->custoupdate('dataSet', array('dataSetName'=>$_POST['dataSetName'.$n], 'url'=>$_POST['dataSetURL'.$n], 'fee'=>$_POST['dataSetFee'.$n]), "%l", $dataSetWhere);
+            		$n = $n + 1;
+            	}
 
+            		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
+            }
+	        
 
 
 
