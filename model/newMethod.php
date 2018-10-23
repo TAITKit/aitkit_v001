@@ -97,6 +97,186 @@ $praetor = new Praetor();
             }
 	        
 
+	        //傳送email給老師
+	require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/POP3.php';
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/OAuth.php';
+require 'PHPMailer/language/phpmailer.lang-ja.php';
+
+//公式通り
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+//require_once ( 'PHPMailer/PHPMailerAutoload.php' );
+$subject = "您已成功上傳演算法，以下為您的上傳資訊";
+$from = "yuzuriha4nerine@gmail.com";
+$smtp_user = "yuzuriha4nerine@gmail.com";
+$smtp_password = "@1a1b1c1d";
+
+$mail = new PHPMailer(true);
+$mail->IsSMTP();
+//$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+$mail->SMTPAuth = true;
+$mail->CharSet = 'utf-8';
+$mail->SMTPSecure = 'tls';
+$mail->Host = "smtp.gmail.com";
+$mail->Port = 587;
+$mail->IsHTML(true);
+$mail->Username = $smtp_user;
+$mail->Password = $smtp_password; 
+$mail->SetFrom($smtp_user);
+$mail->From     = "yuzuriha4nerine@gmail.com";
+$mail->Subject = $subject;
+$mailBody = "<div><label>您已成功上傳演算法，以下為您的上傳資訊：</label></div><fieldset>
+      <legend>程式名稱:</legend>
+	<div>
+                              <label>簡寫:</label>
+                              <label>".$_POST['titleAbbre']."</label>
+                          </div>
+                          <div>
+                              <label>全名:</label>
+                              <label>".$_POST['titleInfo']."</label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>作者/單位:</legend>
+  <div>
+                              <label>作者英文名:</label>
+                              <label>".$_POST['authorName']."</label>
+                          </div>
+                          <div>
+                              <label>單位:</label>
+                              <label>".$_POST['authorUnit']."</label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式功能:</legend>
+  <div>
+                              <label>英文:</label>
+                              <label>".$_POST['functionEnglish']."</label>
+                          </div>
+                          <div>
+                              <label>中文:</label>
+                              <label>".$_POST['functionChinese']."</label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式功能說明-文字描述(中英文皆可)</legend>
+  <div>
+    <textarea>".$_POST['functionDescription']."</textarea>
+                          </div>
+                         
+                          </fieldset>
+                          <fieldset>
+      <legend>程式源碼:</legend>
+  <div>
+                              <label>".$_POST['github']."</label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式類別:</legend>
+  <div>
+                              <label>".$_POST['classification']."</label>
+                          </div>
+                          </fieldset>";
+                          if ($dataSetData)
+                          {
+                          		$mailBody = $mailBody."<fieldset>
+      <legend>執行程式所需要的資料集，語料庫等等的資源:</legend>
+    <div>";
+                          		$n = 0;
+                          	while ($n <= $dataSetData[0]['no'])
+                          	{
+                          		$mailBody = $mailBody.'<table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+<tr>
+<th bgcolor="grey" >名稱</th>
+<th bgcolor="grey" >連結</th>
+<th bgcolor="grey" >收費</th>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['dataSetName'.$n].'</td>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['dataSetURL'.$n].'</td>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['dataSetFee'.$n].'</td>
+</tr>
+
+</table>';
+$n = $n + 1;
+                          	}
+                          	$mailBody = $mailBody.'</div></fieldset>';
+                          }
+                          $mailBody = $mailBody.'<fieldset>
+      <legend>執行程式所需要的系統環境及套件:</legend>
+  <div>
+                              <label>系統環境:</label>
+                              <label>'.$_POST['systemEnvironment'].'</label>
+                            </div>
+                            <div>
+                              <label>套件:</label>
+                              <label>'.$_POST['package'].'</label>
+                          </div>
+                          </fieldset>';
+                          if ($_POST['inputFormat'])
+                          {
+                          		$mailBody = $mailBody.'<fieldset>
+      <legend>程式接受的輸入/輸出格式:</legend>
+  <div>
+                            <label>輸入格式:</label>
+                <label>'.$_POST['inputFormat'].'</label>
+                          </div>
+                          <div>
+                            <label>輸出格式:</label>
+                <label>'.$_POST['outputFormat'].'</label>
+                          </div>
+                          </fieldset>';
+                          }
+                          if ($paremeterData)
+                          {
+                          		$mailBody = $mailBody.'<fieldset>
+      <legend>參數的功能說明以及參數是否是有範圍(Range):</legend>
+
+                       <div>';
+                       $n = 0;
+      	while ($n <= $paremeterData[0]['no'])
+      	{
+      			$mailBody = $mailBody.'<table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+<tr>
+<th bgcolor="grey" >參數名稱</th>
+<th bgcolor="grey" >範圍</th>
+<th bgcolor="grey" >格式</th>
+<th bgcolor="grey" >功能說明</th>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['paremeterName'.$n].'</td>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['paremeterRange'.$n].'</td>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['paremeterFormat'.$n].'</td>
+<td bgcolor="#FFFFFF" align="left" nowrap>'.$_POST['paremeterDescription'.$n].'</td>
+</tr>
+
+</table>';
+$n = $n + 1;
+      	}
+      	$mailBody = $mailBody.'</div>               
+                          </fieldset>';
+                          }
+                         
+                      $mailBody = $mailBody.'<fieldset>
+      <legend>License key:</legend>
+  <div>
+                              <label>'.$licenseKey.'</label>
+                          </div>
+                          </fieldset>';
+                      
+$mail->Body = $mailBody;
+$mail->AddAddress($_SESSION['user']['Email']);
+
+if( !$mail -> Send() ){
+    $message  = "Message was not sent<br/ >";
+    $message .= "Mailer Error: " . $mailer->ErrorInfo;
+} else {
+    $message  = "Message has been sent";
+}
+
 
 ?>
 
