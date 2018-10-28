@@ -134,6 +134,8 @@ button {
         $n = 0;
                             while ($n <= $dataSetData[0]['no'])
                             {
+                              if ($dataSetData[$n]['dataSetName'] || $dataSetData[$n]['url'] || $dataSetData[$n]['fee'])
+                              {
       ?>
                             <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
 <tr>
@@ -142,7 +144,7 @@ button {
 <th bgcolor="grey" >收費</th>
 </tr>
 <tr>
-  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetName'.$number.'" placeholder="EX:WordNet" value=" "></td>
+  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetName'.$number.'" placeholder="EX:WordNet" value="<?php echo $dataSetData[$n]['dataSetName'];?>"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetURL'.$number.'" placeholder="EX:https://wordnet.princeton.edu/" value="<?php echo $dataSetData[$n]['url'];?>"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetFee'.$number.'" placeholder="EX:免費" value="<?php echo $dataSetData[$n]['fee'];?>"></td>
 
@@ -150,6 +152,7 @@ button {
 
 </table>
 <?php
+}
   $n = $n + 1;
                       }
                     }
@@ -215,6 +218,8 @@ button {
         $n = 0;
         while ($n <= $paremeterData[0]['no'])
         {
+          if ($paremeterData[$n]['paremeter'] || $paremeterData[$n]['paremeterRange'] || $paremeterData[$n]['format'] || $paremeterData[$n]['function'])
+          {
       ?>
                             <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
 <tr>
@@ -233,6 +238,7 @@ button {
 
 </table>
 <?php
+}
   $n = $n + 1;
 }
 }

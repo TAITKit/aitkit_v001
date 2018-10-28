@@ -155,6 +155,8 @@ button {
         $n = 0;
                             while ($n <= $dataSetData[0]['no'])
                             {
+                              if ($dataSetData[$n]['dataSetName'] || $dataSetData[$n]['url'] || $dataSetData[$n]['fee'])
+                              {
       ?>
                             <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
 <tr>
@@ -170,6 +172,7 @@ button {
 
 </table>
 <?php
+}
   $n = $n + 1;
                       }?>
                           </div>                 
@@ -217,6 +220,8 @@ button {
         $n = 0;
         while ($n <= $paremeterData[0]['no'])
         {
+          if ($paremeterData[$n]['paremeter'] || $paremeterData[$n]['paremeterRange'] || $paremeterData[$n]['format'] || $paremeterData[$n]['function'])
+          {
       ?>
                             <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
 <tr>
@@ -234,6 +239,7 @@ button {
 
 </table>
 <?php
+}
   $n = $n + 1;
 }
 ?>
