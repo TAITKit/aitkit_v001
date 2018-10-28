@@ -47,6 +47,9 @@ if($_SESSION['user'] == ""){
 		case "addNewMethod":
 			include('model/newMethod.php');
 		break;
+		case "editMethod":
+			include('model/editMethod.php');
+		break;
 		case "Logout":
 			$_SESSION['user'] = '';
 			echo "<script>alert('您已成功登出！');</script>";
