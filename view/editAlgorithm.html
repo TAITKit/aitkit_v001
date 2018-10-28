@@ -187,14 +187,14 @@ button {
                             <label for="input">輸入格式:</label>
                 <select id="inputFormat" name="inputFormat" class="format">
                   <option value="">請選擇</option>
-                  <option value="文件-純文字格式" selected>文件-純文字格式</option>
+                  <option value="文件-純文字格式" <?php if ($data[0]['Input'] == '文件-純文字格式') echo 'selected';?>>文件-純文字格式</option>
                 </select>
                           </div>
                           <div>
                             <label for="output">輸出格式:</label>
                 <select id="outputFormat" name="outputFormat" class="format">
                   <option value="">請選擇</option>
-                  <option value="樹狀結構-HTML格式">樹狀結構-HTML格式</option>
+                  <option value="樹狀結構-HTML格式" <?php if ($data[0]['Output'] == '樹狀結構-HTML格式') echo 'selected';?>>樹狀結構-HTML格式</option>
                 </select>
                           </div>
                           </fieldset>
@@ -249,6 +249,7 @@ button {
                           <div>
                             <input type="hidden" class="aid" name="aid" value="<?php echo $data[0]['AID'];?>">
                             <input type="hidden" name="licenseKey" value="<?php echo $data[0]['LicenseKey'];?>">
+                            <input type="hidden" class="allowFormat" value="<?php echo ($data[0]['Input'] || $data[0]['Output']) ? '1' : '0';?>">
                           <button type="submit" class="button">
                   <i class="add button"></i> Save
               </button>
@@ -265,8 +266,13 @@ button {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
     $(document).ready(function(){
-      $(".inputAllowed").hide();
+      if ($(".allowFormat").val() == '0')
+      {
+          $(".inputAllowed").hide();
+      }
+      
       $(".paremeterAllowed").hide();
+
     })
       
     $(".allowInput").change(function (){
