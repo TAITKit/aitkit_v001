@@ -69,16 +69,30 @@ button {
   $sql3 = "SELECT * FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
   $paremeterData = $praetor->custosql($sql3, array('algorithmID'=>$data[0]['AID']));
 		?>
+    <?php
+  if ($_SESSION['user']['PID'] == $data[0]['OwnerPID'])
+{
+  ?>
 		<h3>Name:<?php echo $_SESSION['user']['PMName'];?></h3>
 <h3>Unit:<?php echo $_SESSION['user']['Institute'];?></h3>
-<h4 style="color: black;">App information:</h4>
+<?php
+          }
+          ?>
 
+<h4 style="color: black;">App information:</h4>
+  <?php
+  if ($_SESSION['user']['PID'] == $data[0]['OwnerPID'])
+{
+  ?>
 	<div>
 	<input type="hidden" name="AID" value="<?php echo $data[0]['AID'];?>">
                           <button type="submit" class="button">
         					<i class="add button">更改資料</i> 
     					</button>
     				</div>
+            <?php
+          }
+          ?>
 	  <fieldset>
       <legend>程式名稱:</legend>
   <div>
