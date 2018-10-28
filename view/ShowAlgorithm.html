@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <style type="text/css">
-	form {
+  form {
   margin: 0 auto;
-  width: 400px;
+  width: 1400px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+  fieldset {
+  margin-left: 0;
+  width: 750px;
   padding: 1em;
   border: 1px solid #CCC;
   border-radius: 1em;
@@ -14,15 +22,11 @@ form div + div {
 
 label {
   display: inline-block;
-  
-  text-align: left;
-}
-
-h4 {
-	color: blue;
+  text-align: center;
 }
 
 input, textarea {
+  vertical-align: top;
   font: 1em sans-serif;
   width: 300px;
   box-sizing: border-box;
@@ -59,6 +63,10 @@ button {
 			$praetor = new Praetor();
 	$sql = "SELECT * FROM algorithm WHERE AlgorithmTitle=%s_AlgorithmTitle";
 	$data = $praetor->custosql($sql, array('AlgorithmTitle'=>$_GET['title']));
+  $sql2 = "SELECT * FROM dataSet WHERE algorithmID=%d_algorithmID ORDER BY no desc";
+  $dataSetData = $praetor->custosql($sql2, array('algorithmID'=>$data[0]['AID']));
+  $sql3 = "SELECT * FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
+  $paremeterData = $praetor->custosql($sql3, array('algorithmID'=>$data[0]['AID']));
 		?>
 		<h3>Name:<?php echo $_SESSION['user']['PMName'];?></h3>
 <h3>Unit:<?php echo $_SESSION['user']['Institute'];?></h3>
@@ -70,58 +78,175 @@ button {
         					<i class="add button">更改資料</i> 
     					</button>
     				</div>
-	<div>
-                              <h4>Algorithm's title:</h4>
-                              <label><?php echo $_GET['title'];?></label>
+	  <fieldset>
+      <legend>程式名稱:</legend>
+  <div>
+                              <label for="issueinput1">簡寫:</label>
+                              <label><?php echo $data[0]['Abbreviation'];?></label>
                           </div>
                           <div>
-							  <h4>Abbreviation:</h4>
-							  <label><?php echo $data[0]['Abbreviation'];?></label>
+                              <label for="issueinput5">全名:</label>
+                              <label><?php echo $data[0]['AlgorithmTitle'];?></label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>作者/單位:</legend>
+  <div>
+                              <label for="issueinput1">作者英文名:</label>
+                              <label><?php echo $data[0]['authorName'];?></label>
                           </div>
                           <div>
-							  <h4>Algorithm's Description:</h4>
-							  <label><?php echo $data[0]['PdfFileName'];?></label>
+                              <label for="issueinput5">單位:</label>
+                              <label><?php echo $data[0]['authorUnit'];?></label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式功能:</legend>
+  <div>
+                              <label for="issueinput1">英文:</label>
+                              <label><?php echo $data[0]['functionEnglish'];?></label>
                           </div>
                           <div>
-							  <h4>Source Code:</h4>
-							  <a href='<?php echo $data[0]['GitHub'];?>'><?php echo $data[0]['GitHub'];?></a>
+                              <label for="issueinput5">中文:</label>
+                              <label><?php echo $data[0]['functionChinese'];?></label>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式功能說明-文字描述(中英文皆可)</legend>
+  <div>
+    <textarea><?php echo $data[0]['functionDescription'];?></textarea>
+                          </div>
+                         
+                          </fieldset>
+                          <fieldset>
+      <legend>程式源碼:</legend>
+  <div>
+                              <a href="<?php echo $data[0]['GitHub'];?>"><?php echo $data[0]['GitHub'];?></a>
+                          </div>
+                          </fieldset>
+                          <fieldset>
+      <legend>程式類別:</legend>
+  <div>
+                              <label><?php echo $data[0]['classification'];?></label>
+                          </div>
+                          </fieldset>
+                          <?php if ($dataSetData)
+                          {
+                            ?>
+                          <fieldset>
+      <legend>執行程式所需要的資料集，語料庫等等的資源:</legend>
+    <div>
+      <?php
+        $n = 0;
+                            while ($n <= $dataSetData[0]['no'])
+                            {
+      ?>
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+<tr>
+<th bgcolor="grey" >名稱</th>
+<th bgcolor="grey" >連結</th>
+<th bgcolor="grey" >收費</th>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $dataSetData[$n]['dataSetName'];?></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $dataSetData[$n]['url'];?></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $dataSetData[$n]['fee'];?></td>
+</tr>
+
+</table>
+<?php
+  $n = $n + 1;
+                      }?>
+                          </div>                 
+                          
+                          
+                          </fieldset>
+                          <?php
+                      }?>
+                          <fieldset>
+      <legend>執行程式所需要的系統環境及套件:</legend>
+  <div>
+                              <label for="issueinput10">系統環境:</label>
+                              <label><?php echo $data[0]['systemEnvironment'];?></label>
+                            </div>
+                            <div>
+                              <label for="issueinput5">套件:</label>
+                              <label><?php echo $data[0]['package'];?></label>
+                          </div>
+                          </fieldset>
+                          <?php if ($data[0]['Input'])
+                          {
+                            ?>
+                          <fieldset class="inputAllowed">
+      <legend>程式接受的輸入/輸出格式:</legend>
+  <div>
+                            <label for="input">輸入格式:</label>
+                <label><?php echo $data[0]['Input'];?></label>
                           </div>
                           <div>
-                <h4>Data Set:</h4>
-                <a href='https://github.com/TAITKit/Discourse_Data'>https://github.com/TAITKit/Discourse_Data</a>
+                            <label for="output">輸出格式:</label>
+                <label><?php echo $data[0]['Output'];?></label>
                           </div>
-                          <div>
-                          	<label for="input">Input Format:</label>
-								<select id="inputFormat" name="inputFormat" class="format">
-								  <option value="">請選擇</option>
-                  <option value="">text</option>
-								</select>
+                          </fieldset>
+                          <?php
+                      }?>
+                      <?php
+                          if ($paremeterData)
+                          {
+                      ?>
+                          <fieldset  class="inputAllowed paremeterAllowed">
+      <legend>參數的功能說明以及參數是否是有範圍(Range):</legend>
+
+                       <div>
+                        <?php 
+        $n = 0;
+        while ($n <= $paremeterData[0]['no'])
+        {
+      ?>
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+<tr>
+<th bgcolor="grey" >參數名稱</th>
+<th bgcolor="grey" >範圍</th>
+<th bgcolor="grey" >格式</th>
+<th bgcolor="grey" >功能說明</th>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $paremeterData[$n]['paremeter'];?></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $paremeterData[$n]['paremeterRange'];?></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $paremeterData[$n]['format'];?></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><?php echo $paremeterData[$n]['function'];?></td>
+</tr>
+
+</table>
+<?php
+  $n = $n + 1;
+}
+?>
+                          </div>               
+                          </fieldset>
+                          <?php
+                      }?>
+                      <fieldset>
+      <legend>License key:</legend>
+  <div>
+                              <label><?php echo $data[0]['LicenseKey'];?></label>
                           </div>
-                          <div>
-                          	<label for="output">Output Format:</label>
-								<select id="outputFormat" name="outputFormat" class="format">
-								  <option value="">請選擇</option>
-                  <option value="">html</option>
-								</select>
-                          </div>
-                          <div>
-							  <h4>License key:</h4>
-							  <label><?php echo $data[0]['LicenseKey'];?></label>
-                          </div>
-                           <div>
-							  <h4>Local Daemon Info:</h4>
-                <div>
+                          </fieldset>
+                          <fieldset>
+      <legend>Local Daemon Info:</legend>
+  <div>
                   IP:<label style="color: red">x.x.x.x Not Register</label>
                 </div>
                 <div>
                   Port:<label style="color: red">---- Not Register</label>
                 </div>
-							  
-                          </div>
-                          <div>
-                          
-    				</div>
-
-                      </form>
+                          </fieldset>
+                          </form>
 </div>
+                           
+
+                      
 </html>
+
+
+

@@ -80,7 +80,7 @@ $praetor = new Praetor();
             		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
             }
 
-            $sql = "SELECT * FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
+            $sql = "SELECT no FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
             $paremeterData = $praetor->custosql($sql, array('algorithmID'=>'-1'));
             if ($paremeterData)
             {
