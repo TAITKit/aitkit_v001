@@ -21,7 +21,10 @@
 // 	}
 // }
 $praetor = new Praetor();
-	$algorithmID = mt_rand(0, 10000);
+	
+  $portNumberSql = "SELECT Portnumber FROM algorithm order by Portnumber desc";
+  $data = $praetor->custosql($portNumberSql, array());
+  $algorithmID = $data[0]['Portnumber'] + 1;
   if ($_POST['acceptParemeter'] == 0)
   {
     $praetor->custodelete('Paremeter', 'algorithmID=%d', -1);
