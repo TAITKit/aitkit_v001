@@ -21,6 +21,10 @@
 // 	}
 // }
 $praetor = new Praetor();
+if ($_POST['acceptParemeter'] == 0)
+  {
+    $praetor->custodelete('Paremeter', 'algorithmID=%d', $_POST['aid']);
+  }
 	$praetor->custoupdate('algorithm', array('OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'Abbreviation'=>$_POST['titleAbbre'], 'Input'=>$_POST['inputFormat'], 'Output'=>$_POST['outputFormat'], 'authorName'=>$_POST['authorName'], 'authorUnit'=>$_POST['authorUnit'], 'functionEnglish'=>$_POST['functionEnglish'], 'functionChinese'=>$_POST['functionChinese'], 'functionDescription'=>$_POST['functionDescription'], 'classification'=>$_POST['classification'], 'systemEnvironment'=>$_POST['systemEnvironment'], 'package'=>$_POST['package']), "AID=%s", $_POST['aid']);
                 
 	$licenseKey = $_POST['licenseKey'];
