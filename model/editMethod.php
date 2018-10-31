@@ -46,7 +46,7 @@ if ($_POST['acceptParemeter'] == 0)
             		$n = $n + 1;
             	}
 
-            		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", $_POST['aid']);
+            	
             }
 
             $sql = "SELECT no FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";
@@ -62,7 +62,7 @@ if ($_POST['acceptParemeter'] == 0)
             		$praetor->custoupdate('Paremeter', array('paremeter'=>$_POST['paremeterName'.$n], 'paremeterRange'=>$_POST['paremeterRange'.$n], 'function'=>$_POST['paremeterDescription'.$n], 'format'=>$_POST['paremeterFormat'.$n]), "%l", $paremeterWhere);
             		$n = $n + 1;
             	}
-            		$praetor->custoupdate('Paremeter', array('algorithmID'=>$algorithmID), "algorithmID=%s", $_POST['aid']);
+            		
             }
 	        
 

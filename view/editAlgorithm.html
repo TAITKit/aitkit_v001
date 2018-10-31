@@ -134,19 +134,23 @@ button {
         $n = 0;
                             while ($n <= $dataSetData[0]['no'])
                             {
-                              if ($dataSetData[$n]['dataSetName'] || $dataSetData[$n]['url'] || $dataSetData[$n]['fee'])
+                              if ($dataSetData[$dataSetData[0]['no'] - $n]['dataSetName'] || $dataSetData[$dataSetData[0]['no'] - $n]['url'] || $dataSetData[$dataSetData[0]['no'] - $n]['fee'])
                               {
       ?>
-                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333" class= "dataSetTable<?php echo $n;?>">
 <tr>
 <th bgcolor="grey" >名稱</th>
 <th bgcolor="grey" >連結</th>
 <th bgcolor="grey" >收費</th>
 </tr>
 <tr>
-  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetName'.$number.'" placeholder="EX:WordNet" value="<?php echo $dataSetData[$n]['dataSetName'];?>"></td>
-<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetURL'.$number.'" placeholder="EX:https://wordnet.princeton.edu/" value="<?php echo $dataSetData[$n]['url'];?>"></td>
-<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetFee'.$number.'" placeholder="EX:免費" value="<?php echo $dataSetData[$n]['fee'];?>"></td>
+  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'dataSetName'.$n;?>" placeholder="EX:WordNet" value="<?php echo $dataSetData[$dataSetData[0]['no'] - $n]['dataSetName'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'dataSetURL'.$n;?>" placeholder="EX:https://wordnet.princeton.edu/" value="<?php echo $dataSetData[$dataSetData[0]['no'] - $n]['url'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'dataSetFee'.$n;?>" placeholder="EX:免費" value="<?php echo $dataSetData[$dataSetData[0]['no'] - $n]['fee'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap> <button type="button" class="deleteDataSet <?php echo $n;?>" value="<?php echo $n;?>">
+刪除
+</button>  
+</td>
 
 </tr>
 
@@ -218,10 +222,10 @@ button {
         $n = 0;
         while ($n <= $paremeterData[0]['no'])
         {
-          if ($paremeterData[$n]['paremeter'] || $paremeterData[$n]['paremeterRange'] || $paremeterData[$n]['format'] || $paremeterData[$n]['function'])
+          if ($paremeterData[$paremeterData[0]['no'] - $n]['paremeter'] || $paremeterData[$paremeterData[0]['no'] - $n]['paremeterRange'] || $paremeterData[$paremeterData[0]['no'] - $n]['format'] || $paremeterData[$paremeterData[0]['no'] - $n]['function'])
           {
       ?>
-                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333" class="paremeterTable<?php echo $n;?>">
 <tr>
 <th bgcolor="grey" >參數名稱</th>
 <th bgcolor="grey" >範圍</th>
@@ -229,10 +233,14 @@ button {
 <th bgcolor="grey" >功能說明</th>
 </tr>
 <tr>
-  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterName'.$n;?>" placeholder="EX:-r" value="<?php echo $paremeterData[$n]['paremeter'];?>"></td>
-<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterRange'.$n;?>" placeholder="EX:0~100" value="<?php echo $paremeterData[$n]['paremeterRange'];?>"></td>
-<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterFormat'.$n;?>" placeholder="EX:-r:50" value="<?php echo $paremeterData[$n]['format'];?>"></td>
-<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterDescription'.$n;?>" placeholder="EX:調整樹的深度" value="<?php echo $paremeterData[$n]['function'];?>"></td>
+  <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterName'.$n;?>" placeholder="EX:-r" value="<?php echo $paremeterData[$paremeterData[0]['no'] - $n]['paremeter'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterRange'.$n;?>" placeholder="EX:0~100" value="<?php echo $paremeterData[$paremeterData[0]['no'] - $n]['paremeterRange'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterFormat'.$n;?>" placeholder="EX:-r:50" value="<?php echo $paremeterData[$paremeterData[0]['no'] - $n]['format'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="<?php echo 'paremeterDescription'.$n;?>" placeholder="EX:調整樹的深度" value="<?php echo $paremeterData[$paremeterData[0]['no'] - $n]['function'];?>"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap> <button type="button" class="deleteParemeter <?php echo $n;?>" value="<?php echo $n;?>">
+刪除
+</button>  
+</td>
 
 </tr>
 
@@ -346,6 +354,52 @@ button {
           
         });
     });
+            var elements = document.getElementsByClassName('deleteDataSet');
+        for (var i = 0, len = elements.length; i < len; i++) {
+          $(".deleteDataSet."+elements[i].value).click(function(e){ // make sure the image is click
+            var numberValue = $(this).val();
+            $.ajax({
+          type: "POST",
+          url: "model/deleteDataSet.php",
+          data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".dataSetTable"+numberValue).remove();
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+                      
+
+    });
+}
+
+var elements3 = document.getElementsByClassName('deleteParemeter');
+        for (var i = 0, len = elements3.length; i < len; i++) {
+          $(".deleteParemeter."+elements3[i].value).click(function(e){ // make sure the image is click
+            var numberValue = $(this).val();
+            $.ajax({
+          type: "POST",
+          url: "model/deleteDataSet.php",
+          data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".paremeterTable"+numberValue).remove();
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+                      
+
+    });
+}
+
 
     
     </script>
