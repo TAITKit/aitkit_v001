@@ -1,4 +1,8 @@
 <?php
+//由view/NewMethod.html呼叫
+//新增一組參數(此檔案只會先處理個數，先建一個空欄位，使用者填的資料還不會被存到資料庫，之後會在model/editAlgorithm.php用update的方式補上空白欄位)
+//當使用者每按下一次"新增"，就會在名為Paremeter的資料表裡面新增一個欄位，需要注意的是此時form的填寫尚未完成，
+//所以還不會有algorithmID，因此會先存algorithmID成-1，等form被submit之後algorithmID=-1的資料會在model/editAlgorithm.php作處理
 
 include('../cfg/cfg.inc.php');
 include('../cls/meekrodb.cls.php');
@@ -8,7 +12,7 @@ include('../cls/Praetor.cls.php');
             $data = $praetor->custosql($sql, array('algorithmID'=>'-1'));
             if ($data)
             {
-            	$number = $data[0]['no'] + 1;
+            	$number = $data[0]['no'] + 1;//$data[0]['no']的值從0開始，每新增一筆就會加1
             }
             else
             {
@@ -31,5 +35,5 @@ include('../cls/Praetor.cls.php');
 </tr>
 
 </table>
-                          </div>';
+                          </div>';//用ajax傳回view/editAlgorithm.html
 ?>

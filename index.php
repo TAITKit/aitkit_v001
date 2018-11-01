@@ -1,4 +1,5 @@
 <?php
+//網站的進入點
 session_start();
 include('model/model.php');
 include('view/page_head.html');

@@ -1,4 +1,8 @@
 <?php
+//當view/NewMpthod.html，即新增演算法的form的submit按下之後會POST到本檔案
+//主要功能是將form的資訊存到資料庫
+//同時包括資料集和參數的處理
+
 //有要上傳檔案的話反註解
 // $uploaddir = 'upload/';
 // $uploadfile = $uploaddir.basename($_FILES['myfile']['name']);
@@ -75,16 +79,17 @@ $praetor = new Praetor();
             if ($dataSetData)
             {
             	$n = 0;
-            	while ($n <= $dataSetData[0]['no'])
+            	while ($n <= $dataSetData[0]['no'])//透過order by desc取得的no.值為資料個數+1
             	{
             		$dataSetWhere = new WhereClause('and'); // create a WHERE statement of pieces joined by ANDs
-					$dataSetWhere->add('algorithmID=%s', '-1');
+					$dataSetWhere->add('algorithmID=%s', '-1');//未處理過的資料algorithmID都是-1
 					$dataSetWhere->add('no=%d', $n);
             		$praetor->custoupdate('dataSet', array('dataSetName'=>$_POST['dataSetName'.$n], 'url'=>$_POST['dataSetURL'.$n], 'fee'=>$_POST['dataSetFee'.$n]), "%l", $dataSetWhere);
             		$n = $n + 1;
             	}
 
             		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
+                //處理完的資料把alogorithmID從-1改成上面的值
             }
 
             $sql = "SELECT no FROM Paremeter WHERE algorithmID=%d_algorithmID ORDER BY no desc";

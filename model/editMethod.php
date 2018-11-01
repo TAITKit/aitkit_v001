@@ -1,4 +1,7 @@
 <?php
+//按下view/editAlgorithm.html中的submit button就會被送到這裡
+//基本上跟newMethod.php很像
+
 //有要上傳檔案的話反註解
 // $uploaddir = 'upload/';
 // $uploadfile = $uploaddir.basename($_FILES['myfile']['name']);

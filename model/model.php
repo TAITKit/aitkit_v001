@@ -1,4 +1,6 @@
 <?php
+	//會被include在index.php
+	//目的是一口氣require cls資料夾裡面的.php
 	//include_once('../../lib/lib.php');
 	include_once('cfg/cfg.inc.php');	
 	function __autoload($ClassName){

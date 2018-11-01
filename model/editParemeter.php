@@ -1,4 +1,6 @@
 <?php
+//由view/editAlgorithm.html呼叫
+//基本上同model/addDataSet.php，只是這是編集，algorithmID已經有值
 
 include('../cfg/cfg.inc.php');
 include('../cls/meekrodb.cls.php');
