@@ -1,221 +1,105 @@
 <!DOCTYPE html>
-<style type="text/css">
-	fieldset {
-  margin: 0 auto;
-  width: 700px;
-  padding: 1em;
-  border: 1px solid #CCC;
-  border-radius: 1em;
-}
-/* Starter CSS for Flyout Menu */
-#cssmenu {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-#cssmenu ul,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#cssmenu ul {
-  position: relative;
-  z-index: 597;
-  float: left;
-}
-#cssmenu ul li {
-  float: left;
-  min-height: 1px;
-  line-height: 1em;
-  vertical-align: middle;
-}
-#cssmenu ul li.hover,
-#cssmenu ul li:hover {
-  position: relative;
-  z-index: 599;
-  cursor: default;
-}
-#cssmenu ul ul {
-  visibility: hidden;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 598;
-  width: 100%;
-}
-#cssmenu ul ul li {
-  float: none;
-}
-#cssmenu ul li:hover > ul {
-  visibility: visible;
-}
-#cssmenu ul ul {
-  top: 0;
-  left: 100%;
-}
-#cssmenu ul li {
-  float: none;
-}
-/* Custom Stuff */
-#cssmenu span,
-#cssmenu a {
-  display: inline-block;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  text-decoration: none;
-}
-#cssmenu {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  -moz-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
-  font-weight: 600;
-  width: 200px;
-}
-#cssmenu:after,
-#cssmenu ul:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-#cssmenu > ul > li:first-child {
-  -moz-border-radius: 5px 5px 0 0;
-  -webkit-border-radius: 5px 5px 0 0;
-  border-radius: 5px 5px 0 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-#cssmenu > ul > li:last-child {
-  -moz-border-radius: 0 0 5px 5px;
-  -webkit-border-radius: 0 0 5px 5px;
-  border-radius: 0 0 5px 5px;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-#cssmenu > ul > li ul ul li:first-child {
-  -moz-border-radius: 0 5px 0 0;
-  -webkit-border-radius: 0 5px 0 0;
-  border-radius: 0 5px 0 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-#cssmenu > ul > li ul ul li:last-child {
-  -moz-border-radius: 0 0 5px 0;
-  -webkit-border-radius: 0 0 5px 0;
-  border-radius: 0 0 5px 0;
-  -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-#cssmenu ul,
-#cssmenu li {
-  width: 100%;
-}
-#cssmenu li {
-  background: #c0bebf url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA0CAMAAAB8fKKlAAAAmVBMVEXy7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7erx7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7ery7eoO3g4TAAAAMnRSTlP8+fbz7+vn497Z1M/KxL+5s66oopuVj4mDfHZwamRdV1FMRkA7NTArJiEcGBQQDAkGA02z+X0AAABLSURBVHheDcGDEQMBAACwvFnbtrv/cO3F949AKBJLpDK5QqlSa2hqaevo6ukbGBoZm5iamVtYWlnb2NrZOzg6Obu4url7eHp5+/wAxikFLnlTZcYAAAAASUVORK5CYII=) repeat-x;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f2edea), color-stop(1, #c0bebf));
-  background-image: -webkit-linear-gradient(top, #f2edea, #c0bebf);
-  background-image: -moz-linear-gradient(top, #f2edea, #c0bebf);
-  background-image: -ms-linear-gradient(top, #f2edea, #c0bebf);
-  background-image: -o-linear-gradient(top, #f2edea, #c0bebf);
-  background-image: linear-gradient(#f2edea, #c0bebf);
-}
-#cssmenu li:hover,
-#cssmenu li.active {
-  background: #606a76 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA0CAMAAAB8fKKlAAAAmVBMVEVKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmJKVmL///9KVmL3Z0MtAAAAMnRSTlP8+fby7+vm4t3Y087Iw723sauln5mTjIaAeXNsZmBaVE5IQjw3MSwnIh0ZFBANCQYDAAm6nKYAAABLSURBVHheDcGDEQMBAACwvFnbtrv/cO3F949AKBJLpDK5QqlSa2hqaevo6ukbGBoZm5iamVtYWlnb2NrZOzg6Obu4url7eHp5+/wAxikFLnlTZcYAAAAASUVORK5CYII=) repeat-x;
-  -moz-box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.15);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4a5662), color-stop(1, #606a76));
-  background-image: -webkit-linear-gradient(top, #4a5662, #606a76);
-  background-image: -moz-linear-gradient(top, #4a5662, #606a76);
-  background-image: -ms-linear-gradient(top, #4a5662, #606a76);
-  background-image: -o-linear-gradient(top, #4a5662, #606a76);
-  background-image: linear-gradient(#4a5662, #606a76);
-}
-#cssmenu li:hover > a,
-#cssmenu li.active > a {
-  color: #FFF;
-}
-#cssmenu a {
-  color: #666666;
-  line-height: 160%;
-  padding: 16px 8px 16px 28px;
-  width: 164px;
-}
-#cssmenu ul ul {
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  width: 200px;
-}
-#cssmenu ul ul li {
-  background: #606a76;
-  border-bottom: 1px solid #59636F;
-  -moz-box-shadow: inset 0 1px 0 #66707c;
-  -webkit-box-shadow: inset 0 1px 0 #66707c;
-  box-shadow: inset 0 1px 0 #66707c;
-}
-#cssmenu ul ul li:hover {
-  background: #4a5662;
-}
-#cssmenu ul ul li a {
-  color: #FFF;
-}
-#cssmenu ul ul a,
-#cssmenu ul ul a span {
-  font-size: 12px;
-}
-
-</style>
-
-<div id='cssmenu'>
-<ul>
-   <li><a href='#'><span>Home</span></a></li>
-   <li class='active has-sub'><a href='#'><span>Products</span></a>
-      <ul>
-         <li class='has-sub'><a href='#'><span>Product 1</span></a>
-            <ul>
-               <li><a href='#'><span>Sub Product</span></a></li>
-               <li class='last'><a href='#'><span>Sub Product</span></a></li>
-            </ul>
-         </li>
-         <li class='has-sub'><a href='#'><span>Product 2</span></a>
-            <ul>
-               <li><a href='#'><span>Sub Product</span></a></li>
-               <li class='last'><a href='#'><span>Sub Product</span></a></li>
-            </ul>
-         </li>
-      </ul>
-   </li>
-   <li><a href='#'><span>About</span></a></li>
-   <li class='last'><a href='#'><span>Contact</span></a></li>
-</ul>
-</div>
 <html>
-<fieldset>
-  <legend>DeepLearningMethodList:</legend>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 48px;
+    left: 0;
+    background-color: rgba(100, 100, 100, 0.3);
+    overflow-x: hidden;
+    padding-top: 20px;
+
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+}
+.sidenav label {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+}
+.sidenav option {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+}
+
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+  
+                  <select id="sensor_select" name="interested" style="padding: 6px 8px 6px 16px;background-color: rgba(100, 100, 100, 0);">
+                  <option value="">Choose Tag</option>
+                  <option class="senno 伸縮儀Guo" value="XTXX">伸縮儀</option>
+                  <option class="senno 傾斜計" value="XTTL">傾斜計</option>
+                  <option class="senno 伸縮儀" value="XT">伸縮儀</option>
+                  <option class="senno 水量儀" value="WS">水量儀</option>
+                  <option class="senno 壓力儀" value="UP">壓力儀</option>
+                  <option class="senno 擺線儀" value="1NP2IP">擺線儀</option>
+                  <option class="senno 荷重計" value="DC">荷重計</option>
+                  <option class="senno 測縫計" value="JT">測縫計</option>
+                  <option class="senno 應變計" value="NS">應變計</option>
+                  <option class="senno 水壓計" value="PP">水壓計</option>
+                  <option class="senno 溫度計" value="TM">溫度計</option>
+                  <option class="senno 水位＆溫濕度計" value="1OW2WT">水位＆溫濕度計</option>
+                  
+                </select>
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div class="main">
   <?php 
-  	$praetor = new Praetor();
-	$sql = "SELECT * FROM algorithm ORDER BY AlgorithmTitle";
-	$data = $praetor->custosql($sql, array());
-	foreach($data as $algorithm)
-	{
+    $praetor = new Praetor();
+  $sql = "SELECT * FROM algorithm ORDER BY AlgorithmTitle";
+  $data = $praetor->custosql($sql, array());
+  foreach($data as $algorithm)
+  {
     if ($algorithm['OwnerPID'] != 0)
     {
         echo "<div>Abbr:<a style ='color: black' href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['Abbreviation'] ."</a><label style='color: blue'>&nbsp;&nbsp;(NLP)</label></div><div>Title:<label>".$algorithm['AlgorithmTitle']."</label></div><div>Input/Output:<label style='color: green'>".$algorithm['Input']."/".$algorithm['Output']."</label></div><br>";
     }
   
-	}
+  }
   ?>
- </fieldset>
-</html>
+ </div>
+     
+</body>
+</html> 
