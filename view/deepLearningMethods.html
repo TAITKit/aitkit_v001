@@ -57,6 +57,53 @@ body {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+form {
+  margin: 0 auto;
+  width: 1400px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+  fieldset {
+  margin-left: 0;
+  width: 750px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  display: inline-block;
+  text-align: center;
+}
+
+input, textarea {
+  vertical-align: top;
+  font: 1em sans-serif;
+  width: 300px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+  border-color: #000;
+}
+
+textarea {
+  vertical-align: top;
+  height: 10em;
+  width: 40em;
+}
+
+button {
+  margin-left: .5em;
+}
 </style>
 </head>
 <body>
@@ -69,34 +116,31 @@ body {
                   <?php
                       $praetor = new Praetor();
                       $sql = "SELECT tagName FROM tag GROUP BY tagName";
-
+                      $selectedTag = $_GET['tag'];
                       $data = $praetor->custosql($sql, array());
 
                       foreach ($data as $key => $value) {
-                          echo '<option class="tag '.$value['tagName'].'" value="'.$value['tagName'].'">'.$value['tagName'].'</option>';
+                      if ($value['tagName'] == $selectedTag)
+                      {
+                          echo '<option class="tag '.$value['tagName'].'" value="'.$value['tagName'].'" selected>'.$value['tagName'].'</option>';
+                      }
+                      else
+                      {
+                          echo '<option class="tag '.$value['tagName'].'" value="'.$value['tagName'].'" >'.$value['tagName'].'</option>';
+                      }
+                          
                       }
                       
                   ?>
                 </select>
+                <input type="hidden" class="showAbbre" value="<?php echo $_GET['abbre'];?>">
                 <div class="list">
 
 </div>
 </div>
 
 <div class="main">
-  <?php 
-    $praetor = new Praetor();
-  $sql = "SELECT * FROM algorithm ORDER BY AlgorithmTitle";
-  $data = $praetor->custosql($sql, array());
-  foreach($data as $algorithm)
-  {
-    if ($algorithm['OwnerPID'] != 0)
-    {
-        echo "<div>Abbr:<a style ='color: black' href='index.php?item=ShowAlgorithm&title=".$algorithm['AlgorithmTitle']."'>".$algorithm['Abbreviation'] ."</a><label style='color: blue'>&nbsp;&nbsp;(NLP)</label></div><div>Title:<label>".$algorithm['AlgorithmTitle']."</label></div><div>Input/Output:<label style='color: green'>".$algorithm['Input']."/".$algorithm['Output']."</label></div><br>";
-    }
   
-  }
-  ?>
  </div>
      
 </body>
@@ -109,11 +153,27 @@ body {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
     $(document).ready(function(){
+      $(".main").empty();
+          $.ajax({
+          type: "POST",
+          url: "model/showContent.php",
+          data: "abbre="+$(".showAbbre").val(),
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".main").append(data);
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+      
       $(".list").empty();
           $.ajax({
           type: "POST",
           url: "model/showList.php",
-          data: "tagName=All",
+          data: "tagName="+$(".tagSelected").val(),
           restful:true,
           cache:false,
           success: function(data){
@@ -142,54 +202,5 @@ body {
           
         });
       });
-    // $(".allowInput").change(function (){
-    //   var elements = document.getElementsByName( "acceptParemeter" );
-    //   $(".inputAllowed").toggle();
-    //   elements[0].checked = false;
-    //   elements[1].checked = true;
-    //   $(".paremeterAllowed").hide();
-
-    //   var elements2 = document.getElementsByName( "acceptInput" );
-    //   if (!elements2[0].checked)
-    //   {
-    //     $("#inputFormat").val('');
-    //     $("#outputFormat").val('');
-    //   }
-    //   });
-    // $(".allowParemeter").change(function (){
-    //   $(".paremeterAllowed").toggle();
-    //   });
-   
-    // $(".addDataSet").click(function(e){ // make sure the image is click
-    //     $.ajax({
-    //       type: "POST",
-    //       url: "model/addDataSet.php",
-    //       restful:true,
-    //       cache:false,
-    //       success: function(data){
-    //         $(".dataSetForm").append(data);
-    //       },
-    //       error: function (error) {
-    //         alert('error');
-    //       }
-          
-    //     });
-    // });
-
-    // $(".addParemeter").click(function(e){ // make sure the image is click
-    //     $.ajax({
-    //       type: "POST",
-    //       url: "model/addParemeter.php",
-    //       restful:true,
-    //       cache:false,
-    //       success: function(data){
-    //         $(".paremeterForm").append(data);
-    //       },
-    //       error: function (error) {
-    //         alert('error');
-    //       }
-          
-    //     });
-    // });
     
     </script>

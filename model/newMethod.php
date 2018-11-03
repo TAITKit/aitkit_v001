@@ -34,6 +34,8 @@ $praetor = new Praetor();
     $praetor->custodelete('Paremeter', 'algorithmID=%d', -1);
   }
 	$praetor->custoinsert('algorithm', array('AID'=> $algorithmID, 'OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'Abbreviation'=>$_POST['titleAbbre'], 'Input'=>$_POST['inputFormat'], 'Output'=>$_POST['outputFormat'], 'authorName'=>$_POST['authorName'], 'authorUnit'=>$_POST['authorUnit'], 'functionEnglish'=>$_POST['functionEnglish'], 'functionChinese'=>$_POST['functionChinese'], 'functionDescription'=>$_POST['functionDescription'], 'classification'=>$_POST['classification'], 'systemEnvironment'=>$_POST['systemEnvironment'], 'package'=>$_POST['package'], 'allowParemeter'=>$_POST['acceptParemeter']));
+
+  //把tag另外儲存到一個資料表
   $tagLenth = strlen($_POST['classification']);
   $n = 0;
   $tag = '';

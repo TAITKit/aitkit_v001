@@ -67,6 +67,30 @@ if ($_POST['acceptParemeter'] == 0)
             	}
             		
             }
+            //先把原本的tag值刪掉
+$praetor->custodelete('tag', 'algorithmID=%d', $_POST['aid']);
+            //把tag另外儲存到一個資料表
+  $tagLenth = strlen($_POST['classification']);
+  $n = 0;
+  $tag = '';
+
+  while ($n < $tagLenth) {
+   if ($_POST['classification'][$n] != ',')
+   {
+     $tag = $tag.$_POST['classification'][$n];
+   }
+   else if ($_POST['classification'][$n] == ',')
+   {
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tag = '';
+   }
+   if ($n == $tagLenth - 1)
+   {
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tag = '';
+   }
+   $n = $n + 1;
+  }
 	        
 
 	        //傳送email給老師
