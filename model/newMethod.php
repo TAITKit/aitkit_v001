@@ -34,6 +34,27 @@ $praetor = new Praetor();
     $praetor->custodelete('Paremeter', 'algorithmID=%d', -1);
   }
 	$praetor->custoinsert('algorithm', array('AID'=> $algorithmID, 'OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'Abbreviation'=>$_POST['titleAbbre'], 'Input'=>$_POST['inputFormat'], 'Output'=>$_POST['outputFormat'], 'authorName'=>$_POST['authorName'], 'authorUnit'=>$_POST['authorUnit'], 'functionEnglish'=>$_POST['functionEnglish'], 'functionChinese'=>$_POST['functionChinese'], 'functionDescription'=>$_POST['functionDescription'], 'classification'=>$_POST['classification'], 'systemEnvironment'=>$_POST['systemEnvironment'], 'package'=>$_POST['package'], 'allowParemeter'=>$_POST['acceptParemeter']));
+  $tagLenth = strlen($_POST['classification']);
+  $n = 0;
+  $tag = '';
+
+  while ($n < $tagLenth) {
+   if ($_POST['classification'][$n] != ',')
+   {
+     $tag = $tag.$_POST['classification'][$n];
+   }
+   else if ($_POST['classification'][$n] == ',')
+   {
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tag = '';
+   }
+   if ($n == $tagLenth - 1)
+   {
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tag = '';
+   }
+   $n = $n + 1;
+  }
 	//$licenseKey = $_SESSION['user']['PMName'][0];
 	// $userLenth = strlen($_SESSION['user']['PMName']);
 	// $n = 1;

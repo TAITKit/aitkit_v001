@@ -63,26 +63,24 @@ body {
 
 <div class="sidenav">
   
-                  <select id="sensor_select" name="interested" style="padding: 6px 8px 6px 16px;background-color: rgba(100, 100, 100, 0);">
-                  <option value="">Choose Tag</option>
-                  <option class="senno 伸縮儀Guo" value="XTXX">伸縮儀</option>
-                  <option class="senno 傾斜計" value="XTTL">傾斜計</option>
-                  <option class="senno 伸縮儀" value="XT">伸縮儀</option>
-                  <option class="senno 水量儀" value="WS">水量儀</option>
-                  <option class="senno 壓力儀" value="UP">壓力儀</option>
-                  <option class="senno 擺線儀" value="1NP2IP">擺線儀</option>
-                  <option class="senno 荷重計" value="DC">荷重計</option>
-                  <option class="senno 測縫計" value="JT">測縫計</option>
-                  <option class="senno 應變計" value="NS">應變計</option>
-                  <option class="senno 水壓計" value="PP">水壓計</option>
-                  <option class="senno 溫度計" value="TM">溫度計</option>
-                  <option class="senno 水位＆溫濕度計" value="1OW2WT">水位＆溫濕度計</option>
+                  <select class="tagSelected" name="interested" style="padding: 6px 8px 6px 16px;background-color: rgba(100, 100, 100, 0);" >
                   
+                  <option class="tag All" value="All">All</option>
+                  <?php
+                      $praetor = new Praetor();
+                      $sql = "SELECT tagName FROM tag GROUP BY tagName";
+
+                      $data = $praetor->custosql($sql, array());
+
+                      foreach ($data as $key => $value) {
+                          echo '<option class="tag '.$value['tagName'].'" value="'.$value['tagName'].'">'.$value['tagName'].'</option>';
+                      }
+                      
+                  ?>
                 </select>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
+                <div class="list">
+
+</div>
 </div>
 
 <div class="main">
@@ -103,3 +101,95 @@ body {
      
 </body>
 </html> 
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript"> var jQuery_1_5_1 = $.noConflict(true); </script>
+  <!--for search select-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $(".list").empty();
+          $.ajax({
+          type: "POST",
+          url: "model/showList.php",
+          data: "tagName=All",
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".list").append(data);
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+    })
+    $(".tagSelected").change(function (){
+          $(".list").empty();
+          $.ajax({
+          type: "POST",
+          url: "model/showList.php",
+          data: "tagName="+$(".tagSelected").val(),
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".list").append(data);
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+      });
+    // $(".allowInput").change(function (){
+    //   var elements = document.getElementsByName( "acceptParemeter" );
+    //   $(".inputAllowed").toggle();
+    //   elements[0].checked = false;
+    //   elements[1].checked = true;
+    //   $(".paremeterAllowed").hide();
+
+    //   var elements2 = document.getElementsByName( "acceptInput" );
+    //   if (!elements2[0].checked)
+    //   {
+    //     $("#inputFormat").val('');
+    //     $("#outputFormat").val('');
+    //   }
+    //   });
+    // $(".allowParemeter").change(function (){
+    //   $(".paremeterAllowed").toggle();
+    //   });
+   
+    // $(".addDataSet").click(function(e){ // make sure the image is click
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "model/addDataSet.php",
+    //       restful:true,
+    //       cache:false,
+    //       success: function(data){
+    //         $(".dataSetForm").append(data);
+    //       },
+    //       error: function (error) {
+    //         alert('error');
+    //       }
+          
+    //     });
+    // });
+
+    // $(".addParemeter").click(function(e){ // make sure the image is click
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "model/addParemeter.php",
+    //       restful:true,
+    //       cache:false,
+    //       success: function(data){
+    //         $(".paremeterForm").append(data);
+    //       },
+    //       error: function (error) {
+    //         alert('error');
+    //       }
+          
+    //     });
+    // });
+    
+    </script>
