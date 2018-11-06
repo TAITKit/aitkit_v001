@@ -8,7 +8,7 @@
     	$sql = "SELECT abbreviation FROM tag GROUP BY abbreviation";
     $data = $praetor->custosql($sql, array());
     foreach ($data as $key => $value) {
-    	echo '<a href="?item=DeepLearningMethods&tag=All&abbre='.$value['abbreviation'].'">'.$value['abbreviation'].'</a>';
+    	echo '<a class="title" abbre="'.$value['abbreviation'].'"href="?item=DeepLearningMethods&tag=All&abbre='.$value['abbreviation'].'">'.$value['abbreviation'].'</a>';
     	
     }
 	}
@@ -17,7 +17,7 @@
     	$sql = "SELECT abbreviation FROM tag WHERE tagName=%s_tagName";
     $data = $praetor->custosql($sql, array('tagName'=>$_POST['tagName']));
     foreach ($data as $key => $value) {
-    	echo '<a href="?item=DeepLearningMethods&tag='.$_POST['tagName'].'&abbre='.$value['abbreviation'].'">'.$value['abbreviation'].'</a>';
+    	echo '<a class="title" abbre="'.$value['abbreviation'].'"href="?item=DeepLearningMethods&tag='.$_POST['tagName'].'&abbre='.$value['abbreviation'].'">'.$value['abbreviation'].'</a>';
     }
     }
     
