@@ -1,4 +1,6 @@
 <?php
+//本檔案是在當頁面停留在DeepLearningMethods時按下左方導覽列的演算法時會以ajax的方式被view/deepLearningMethods.html呼叫
+//做的事情主要是顯示被選到的演算法的內容
 	include('../cfg/cfg.inc.php');
 	include('../cls/meekrodb.cls.php');
 	include('../cls/Praetor.cls.php');

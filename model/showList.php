@@ -1,4 +1,6 @@
 <?php
+//本檔案是當導覽列中的DeepLearningMethods按下後會以ajax方式被view/deepLearningMethods.html呼叫
+//做的事情主要是從名為'tag'的資料表中讀取資料，依照所選取的tag來顯示演算法簡寫於左方導覽列
 	include('../cfg/cfg.inc.php');
 	include('../cls/meekrodb.cls.php');
 	include('../cls/Praetor.cls.php');
