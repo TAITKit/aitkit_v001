@@ -1,0 +1,8 @@
+﻿#	名稱		 型態	
+1	paremeterID(主鍵)int(50)		
+2	algorithmID	 varchar(20)	
+3	paremeter	 varchar(50)	
+4	paremeterRange	 varchar(50)	
+5	function	 varchar(50)	
+6	format		 varchar(50)	
+7	no		 int(50)		

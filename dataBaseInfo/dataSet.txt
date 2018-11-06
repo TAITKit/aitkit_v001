@@ -1,0 +1,7 @@
+﻿#	名稱		型態	
+1	dataSetID(主鍵)	int(50)	
+2	algorithmID	varchar(20)	
+3	dataSetName	varchar(50)	
+4	url		varchar(100)	
+5	fee		varchar(10)	
+6	no		int(50)		

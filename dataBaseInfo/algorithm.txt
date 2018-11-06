@@ -1,0 +1,23 @@
+﻿#	名稱			型態	
+1	AID			varchar(20)	
+2	OwnerPID		int(20)			
+3	AlgorithmTitle		varchar(100)
+4	GitHub			varchar(100)
+5	PdfFileName		varchar(100)
+6	Logo			varchar(100)//目前沒用到
+7	StimulusType		varchar(20)
+8	Portnumber(主鍵)	int(20)	//會自動增加
+9	ServerIP		varchar(100)
+10	Abbreviation		varchar(50)
+11	LicenseKey		varchar(50)
+12	Input			varchar(20)	
+13	Output			varchar(20)
+14	authorName		varchar(50)	
+15	authorUnit		varchar(50)
+16	functionEnglish		varchar(50)
+17	functionChinese		varchar(50)
+18	functionDescription	text
+19	classification		varchar(50)
+20	systemEnvironment	varchar(50)
+21	package			varchar(50)	
+22	allowParemeter		tinyint(1)	

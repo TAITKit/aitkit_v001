@@ -1,0 +1,8 @@
+﻿#	名稱		型態	
+1	PID(主鍵)	int(20)			
+2	Institute	varchar(50)	
+3	PMName		varchar(20)	
+4	Email		varchar(50)	
+5	Password	varchar(50)
+6	Conformed	tinyint(1)
+7	Logo		varchar(100)	
