@@ -20,7 +20,7 @@ include('../cls/Praetor.cls.php');
             }
             $praetor->custoinsert('Paremeter', array('algorithmID'=>'-1', 'no'=> $number));
             echo '<div>
-                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333" class="paremeterTable'.$number.'">
 <tr>
 <th bgcolor="grey" width="400">參數名稱</th>
 <th bgcolor="grey" >範圍</th>
@@ -33,6 +33,10 @@ include('../cls/Praetor.cls.php');
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="paremeterFormat'.$number.'" placeholder="EX:-r:50"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="paremeterDescription'.$number.'" placeholder="EX:調整樹的深度"></td>
 </tr>
+<td bgcolor="#FFFFFF" align="left" nowrap> <button type="button" class="deleteParemeter '.$number.'" value="'.$number.'">
+刪除
+</button>  
+</td>
 
 </table>
                           </div>';//用ajax傳回view/editAlgorithm.html

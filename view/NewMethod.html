@@ -242,7 +242,7 @@ button {
         });
     });
 
-    $(".dataSetForm").click(function(e){ // make sure the image is click
+    $(".dataSetForm").click(function(e){ 
         var target = $( e.target );
         if ( target.is( "button" ) && target.attr('class') != 'addDataSet') {
         $.ajax({
@@ -253,6 +253,26 @@ button {
           cache:false,
           success: function(data){
             $(".dataSetTable"+target.attr('value')).remove();
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+  }
+    });
+
+    $(".paremeterForm").click(function(e){ 
+        var target = $( e.target );
+        if ( target.is( "button" ) && target.attr('class') != 'addParemeter') {
+        $.ajax({
+          type: "POST",
+          url: "model/deleteParemeter.php",
+          data: "AID=-1&numberValue="+target.attr('value'),
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".paremeterTable"+target.attr('value')).remove();
           },
           error: function (error) {
             alert('error');
