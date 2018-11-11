@@ -20,7 +20,7 @@ include('../cls/Praetor.cls.php');
             }
             $praetor->custoinsert('dataSet', array('algorithmID'=>'-1', 'no'=> $number));
             echo '<div>
-                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333">
+                            <table border="1" width="500" cellspacing="0" cellpadding="5" bordercolor="#333333" class= "dataSetTable'.$number.'">
 <tr>
 <th bgcolor="grey" width="400">名稱</th>
 <th bgcolor="grey" >連結</th>
@@ -30,6 +30,10 @@ include('../cls/Praetor.cls.php');
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetName'.$number.'" placeholder="EX:WordNet"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetURL'.$number.'" placeholder="EX:https://wordnet.princeton.edu/"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="dataSetFee'.$number.'" placeholder="EX:免費"></td>
+<td bgcolor="#FFFFFF" align="left" nowrap> <button type="button" class="deleteDataSet '.$number.'" value="'.$number.'">
+刪除
+</button>  
+</td>
 </tr>
 
 </table>

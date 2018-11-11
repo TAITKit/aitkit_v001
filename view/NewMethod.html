@@ -61,6 +61,7 @@ button {
 	<form action="index.php?item=addNewMethod" method="post" enctype="multipart/form-data">
     <fieldset>
       <legend>程式名稱:</legend>
+      
 	<div>
                               <label for="issueinput1">簡寫:</label>
                               <input type="text" id="issueinput1" class="form-control" name="titleAbbre" placeholder="EX:Discourse">
@@ -239,6 +240,26 @@ button {
           }
           
         });
+    });
+
+    $(".dataSetForm").click(function(e){ // make sure the image is click
+        var target = $( e.target );
+        if ( target.is( "button" ) && target.attr('class') != 'addDataSet') {
+        $.ajax({
+          type: "POST",
+          url: "model/deleteDataSet.php",
+          data: "AID=-1&numberValue="+target.attr('value'),
+          restful:true,
+          cache:false,
+          success: function(data){
+            $(".dataSetTable"+target.attr('value')).remove();
+          },
+          error: function (error) {
+            alert('error');
+          }
+          
+        });
+  }
     });
     
     </script>
