@@ -81,12 +81,12 @@ $praetor->custodelete('tag', 'algorithmID=%d', $_POST['aid']);
    }
    else if ($_POST['classification'][$n] == ',')
    {
-      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$_POST['aid'], 'abbreviation'=>$_POST['titleAbbre']));
       $tag = '';
    }
    if ($n == $tagLenth - 1)
    {
-      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$_POST['aid'], 'abbreviation'=>$_POST['titleAbbre']));
       $tag = '';
    }
    $n = $n + 1;

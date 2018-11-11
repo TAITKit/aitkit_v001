@@ -32,11 +32,12 @@ include('../cls/Praetor.cls.php');
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="paremeterRange'.$number.'" placeholder="EX:0~100"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="paremeterFormat'.$number.'" placeholder="EX:-r:50"></td>
 <td bgcolor="#FFFFFF" align="left" nowrap><input type="text" id="issueinput1" class="form-control" name="paremeterDescription'.$number.'" placeholder="EX:調整樹的深度"></td>
-</tr>
 <td bgcolor="#FFFFFF" align="left" nowrap> <button type="button" class="deleteParemeter '.$number.'" value="'.$number.'">
 刪除
 </button>  
 </td>
+</tr>
+
 
 </table>
                           </div>';//用ajax傳回view/editAlgorithm.html

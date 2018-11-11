@@ -354,51 +354,91 @@ button {
           
         });
     });
-            var elements = document.getElementsByClassName('deleteDataSet');
-        for (var i = 0, len = elements.length; i < len; i++) {
-          $(".deleteDataSet."+elements[i].value).click(function(e){ // make sure the image is click
-            var numberValue = $(this).val();
-            $.ajax({
+
+    $(".dataSetForm").click(function(e){ 
+        var target = $( e.target );
+        if ( target.is( "button" ) && target.attr('class') != 'addDataSet') {
+        $.ajax({
           type: "POST",
           url: "model/deleteDataSet.php",
-          data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+          data: "AID="+$(".aid").val()+"&numberValue="+target.attr('value'),
           restful:true,
           cache:false,
           success: function(data){
-            $(".dataSetTable"+numberValue).remove();
+            $(".dataSetTable"+target.attr('value')).remove();
           },
           error: function (error) {
             alert('error');
           }
           
         });
-                      
-
+  }
     });
-}
 
-var elements3 = document.getElementsByClassName('deleteParemeter');
-        for (var i = 0, len = elements3.length; i < len; i++) {
-          $(".deleteParemeter."+elements3[i].value).click(function(e){ // make sure the image is click
-            var numberValue = $(this).val();
-            $.ajax({
+    $(".paremeterForm").click(function(e){ 
+        var target = $( e.target );
+        if ( target.is( "button" ) && target.attr('class') != 'addParemeter') {
+        $.ajax({
           type: "POST",
-          url: "model/deleteDataSet.php",
-          data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+          url: "model/deleteParemeter.php",
+          data: "AID="+$(".aid").val()+"&numberValue="+target.attr('value'),
           restful:true,
           cache:false,
           success: function(data){
-            $(".paremeterTable"+numberValue).remove();
+            $(".paremeterTable"+target.attr('value')).remove();
           },
           error: function (error) {
             alert('error');
           }
           
         });
+  }
+    });
+//             var elements = document.getElementsByClassName('deleteDataSet');
+//         for (var i = 0, len = elements.length; i < len; i++) {
+//           $(".deleteDataSet."+elements[i].value).click(function(e){ // make sure the image is click
+//             var numberValue = $(this).val();
+//             $.ajax({
+//           type: "POST",
+//           url: "model/deleteDataSet.php",
+//           data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+//           restful:true,
+//           cache:false,
+//           success: function(data){
+//             $(".dataSetTable"+numberValue).remove();
+//           },
+//           error: function (error) {
+//             alert('error');
+//           }
+          
+//         });
                       
 
-    });
-}
+//     });
+// }
+
+// var elements3 = document.getElementsByClassName('deleteParemeter');
+//         for (var i = 0, len = elements3.length; i < len; i++) {
+//           $(".deleteParemeter."+elements3[i].value).click(function(e){ // make sure the image is click
+//             var numberValue = $(this).val();
+//             $.ajax({
+//           type: "POST",
+//           url: "model/deleteDataSet.php",
+//           data: "AID="+$(".aid").val()+"&numberValue="+numberValue,
+//           restful:true,
+//           cache:false,
+//           success: function(data){
+//             $(".paremeterTable"+numberValue).remove();
+//           },
+//           error: function (error) {
+//             alert('error');
+//           }
+          
+//         });
+                      
+
+//     });
+// }
 
 
     
