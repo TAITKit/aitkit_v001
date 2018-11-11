@@ -191,14 +191,20 @@ button {
                             <label for="input">輸入格式:</label>
                 <select id="inputFormat" name="inputFormat" class="format">
                   <option value="">請選擇</option>
-                  <option value="文件-純文字格式" <?php if ($data[0]['Input'] == '文件-純文字格式') echo 'selected';?>>文件-純文字格式</option>
+                  <option value="Type-A: Document" <?php if ($data[0]['Input'] == 'Type-A: Document') echo 'selected';?>>Type-A: Document</option>
+                  <option value="Type-B: Image" <?php if ($data[0]['Input'] == 'Type-B: Image') echo 'selected';?>>Type-B: Image</option>
+                  <option value="Type-C: Speech" <?php if ($data[0]['Input'] == 'Type-C: Speech') echo 'selected';?>>Type-C: Speech</option>
+                  <option value="Type-D: Html Form" <?php if ($data[0]['Input'] == 'Type-D: Html Form') echo 'selected';?>>Type-D: Html Form</option>
                 </select>
                           </div>
                           <div>
                             <label for="output">輸出格式:</label>
                 <select id="outputFormat" name="outputFormat" class="format">
                   <option value="">請選擇</option>
-                  <option value="樹狀結構-HTML格式" <?php if ($data[0]['Output'] == '樹狀結構-HTML格式') echo 'selected';?>>樹狀結構-HTML格式</option>
+                  <option value="Type-A: Document" <?php if ($data[0]['Output'] == 'Type-A: Document') echo 'selected';?>>Type-A: Document</option>
+                  <option value="Type-B: Image" <?php if ($data[0]['Output'] == 'Type-B: Image') echo 'selected';?>>Type-B: Image</option>
+                  <option value="Type-C: Speech" <?php if ($data[0]['Output'] == 'Type-C: Speech') echo 'selected';?>>Type-C: Speech</option>
+                  <option value="Type-D: Html Form" <?php if ($data[0]['Output'] == 'Type-D: Html Form') echo 'selected';?>>Type-D: Html Form</option>
                 </select>
                           </div>
                           </fieldset>
