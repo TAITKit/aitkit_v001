@@ -1,4 +1,90 @@
 <!DOCTYPE html>
+<style type="text/css">
+	form {
+  margin: 0 auto;
+  width: 500px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+    background-color: white;
+}
+
+  fieldset {
+  margin-left: 0;
+  width: 250px;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  
+  display: inline-block;
+  text-align: center;
+}
+
+input, textarea {
+	float:right;
+  vertical-align: top;
+  font: 1em sans-serif;
+  width: 300px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+  border-color: #000;
+}
+
+textarea {
+  vertical-align: top;
+  height: 10em;
+  width: 40em;
+}
+
+button {
+  margin-left: 200px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+</style>
+
 <html>
-<h3 class="Topic">Register</h3>
-</html>
+<div class="form-group">
+	<form action="model/register.php" method="post">
+	<div>
+                              <label for="issueinput1">Email:</label>
+                              <input type="text" id="issueinput1" class="form-control" name="Email" placeholder="EX:123456@gmail.com">
+                          </div>
+                          <div>
+                              <label for="issueinput5">Full name:</label>
+                              <input type="text" id="issueinput2" class="form-control" name="fullName" placeholder="First-Middle Last, EX:Hung-hsiang Chen">
+                          </div>
+                          <div>
+                              <label for="issueinput5">Phone number:</label>
+                              <input type="text" id="issueinput3" class="form-control" name="phoneNumber" placeholder="EX:0912345678">
+                          </div>
+                          <div>
+                              <label for="issueinput5">Unit:</label>
+                              <input type="text" id="issueinput4" class="form-control" name="unit" placeholder="EX:NTU">
+                          </div>
+                          <div>
+                              <label for="issueinput5">Password:</label>
+                              <input type="text" id="issueinput5" class="form-control" name="password" placeholder="EX:1111">
+                          </div>
+                          <br>
+                          <button type="submit" class="button">
+                  <i class="add button"></i> Save
+              </button>
+                       
+ </html>
