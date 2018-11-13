@@ -29,9 +29,11 @@ $praetor = new Praetor();
   $portNumberSql = "SELECT Portnumber FROM algorithm order by Portnumber desc";
   $data = $praetor->custosql($portNumberSql, array());
   $algorithmID = $data[0]['Portnumber'] + 1;
+  $NeedParameter = 'YES';
   if ($_POST['acceptParemeter'] == 0)
   {
     $praetor->custodelete('Paremeter', 'algorithmID=%d', -1);
+    $NeedParameter = 'NO';
   }
 	$praetor->custoinsert('algorithm', array('AID'=> $algorithmID, 'OwnerPID'=>$_SESSION['user']['PID'], 'AlgorithmTitle'=>$_POST['titleInfo'],'GitHub'=>$_POST['github'],'Abbreviation'=>$_POST['titleAbbre'], 'Input'=>$_POST['inputFormat'], 'Output'=>$_POST['outputFormat'], 'authorName'=>$_POST['authorName'], 'authorUnit'=>$_POST['authorUnit'], 'functionEnglish'=>$_POST['functionEnglish'], 'functionChinese'=>$_POST['functionChinese'], 'functionDescription'=>$_POST['functionDescription'], 'classification'=>$_POST['classification'], 'systemEnvironment'=>$_POST['systemEnvironment'], 'package'=>$_POST['package'], 'allowParemeter'=>$_POST['acceptParemeter']));
 
@@ -39,7 +41,7 @@ $praetor = new Praetor();
   $tagLenth = strlen($_POST['classification']);
   $n = 0;
   $tag = '';
-
+  $tagJson = array();
   while ($n < $tagLenth) {
    if ($_POST['classification'][$n] != ',')
    {
@@ -48,36 +50,61 @@ $praetor = new Praetor();
    else if ($_POST['classification'][$n] == ',')
    {
       $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tagJson[] = $tag;
       $tag = '';
    }
    if ($n == $tagLenth - 1)
    {
       $praetor->custoinsert('tag', array('tagName'=>$tag, 'algorithmID'=>$algorithmID, 'abbreviation'=>$_POST['titleAbbre']));
+      $tagJson[] = $tag;
       $tag = '';
    }
    $n = $n + 1;
   }
-	//$licenseKey = $_SESSION['user']['PMName'][0];
-	// $userLenth = strlen($_SESSION['user']['PMName']);
-	// $n = 1;
-	// while ($n < $userLenth) {
+	
+  $githubLenth = strlen($_POST['github']);
+  $n = 0;
+  $sourceCode = '';
+  $sourceCodeJson = array();
+  while ($n < $githubLenth) {
+   if ($_POST['github'][$n] != ',')
+   {
+     $sourceCode = $sourceCode.$_POST['github'][$n];
+   }
+   else if ($_POST['github'][$n] == ',')
+   {
+      $sourceCodeJson[] = $sourceCode;
+      $sourceCode = '';
+   }
+   if ($n == $githubLenth - 1)
+   {
+      $sourceCodeJson[] = $sourceCode;
+      $sourceCode = '';
+   }
+   $n = $n + 1;
+  }
 
-	// 	if ($_SESSION['user']['PMName'][$n] == ' ' && $n + 1 != $userLenth)
-	// 	{
-	// 		$licenseKey = $licenseKey.$_SESSION['user']['PMName'][$n + 1];
-	// 	}
-	// 	$n = $n + 1;
-	// }
-	// $licenseKey = $licenseKey.'_'.$_POST['titleInfo'][0];
-	// $titleLenth = strlen($_POST['titleInfo']);
-	// $n = 1;
-	// while ($n < $titleLenth) {
-	// 	if ($_POST['titleInfo'][$n] == ' ' && $n + 1 != $titleLenth)
-	// 	{
-	// 		$licenseKey = $licenseKey.$_POST['titleInfo'][$n + 1];
-	// 	}
-	// 	$n = $n + 1;
-	// }
+  $packageLenth = strlen($_POST['systemEnvironment']);
+  $n = 0;
+  $package = '';
+  $packageJson = array();
+  while ($n < $$packageLenth) {
+   if ($_POST['systemEnvironment'][$n] != ',')
+   {
+     $package = $package.$_POST['systemEnvironment'][$n];
+   }
+   else if ($_POST['systemEnvironment'][$n] == ',')
+   {
+      $packageJson[] = $package;
+      $package = '';
+   }
+   if ($n == $packageLenth - 1)
+   {
+      $packageJson[] = $package;
+      $package = '';
+   }
+   $n = $n + 1;
+  }
 
 	$licenseKey = strtoupper($_SESSION['user']['PMName'][0].substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], '-') + 1, 1).substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], ' ') + 1));
 	if (strpos($_POST['titleAbbre'], ' ')  !== false)
@@ -97,6 +124,8 @@ $praetor = new Praetor();
 	//print_r($licenseKey);
 	//echo "<script>alert('".$licenseKey."');</script>";
 	//echo "<script>location.href='index.php?item=praetorLogin';</script>";
+  $dataSetJson = array();
+  $paremeterJson = array();
 	$sql = "SELECT no FROM dataSet WHERE algorithmID=%d_algorithmID ORDER BY no desc";
             $dataSetData = $praetor->custosql($sql, array('algorithmID'=>'-1'));
             if ($dataSetData)
@@ -108,7 +137,11 @@ $praetor = new Praetor();
 					$dataSetWhere->add('algorithmID=%s', '-1');//未處理過的資料algorithmID都是-1
 					$dataSetWhere->add('no=%d', $n);
             		$praetor->custoupdate('dataSet', array('dataSetName'=>$_POST['dataSetName'.$n], 'url'=>$_POST['dataSetURL'.$n], 'fee'=>$_POST['dataSetFee'.$n]), "%l", $dataSetWhere);
+                $dataSetJson[] = array("Name" => $_POST['dataSetName'.$n],
+       "Url" => $_POST['dataSetURL'.$n],
+       "Fee" => $_POST['dataSetFee'.$n]);
             		$n = $n + 1;
+                
             	}
 
             		$praetor->custoupdate('dataSet', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
@@ -126,10 +159,58 @@ $praetor = new Praetor();
 					$paremeterWhere->add('algorithmID=%s', '-1');
 					$paremeterWhere->add('no=%d', $n);
             		$praetor->custoupdate('Paremeter', array('paremeter'=>$_POST['paremeterName'.$n], 'paremeterRange'=>$_POST['paremeterRange'.$n], 'function'=>$_POST['paremeterDescription'.$n], 'format'=>$_POST['paremeterFormat'.$n]), "%l", $paremeterWhere);
+                $paremeterJson[] = array("function"=>$_POST['paremeterDescription'.$n],"name"=>$_POST['paremeterName'.$n],"range"=>$_POST['paremeterRange'.$n],"format"=>$_POST['paremeterFormat'.$n]);
             		$n = $n + 1;
             	}
             		$praetor->custoupdate('Paremeter', array('algorithmID'=>$algorithmID), "algorithmID=%s", '-1');
             }
+
+
+            $CanExecute = 'NO';
+            if ($_POST['inputFormat'] && $_POST['outputFormat'])
+            {
+                $CanExecute = 'YES';
+            }
+
+//產生Json檔案
+            $json = array("Abbr" => $_POST['titleAbbre'],"FullName" => $_POST['titleInfo'],  
+    "Author" => $_POST['authorName'], 
+    "Unit" => $_POST['authorUnit'],
+    "ProgramGoal" => array($_POST['functionEnglish'], $_POST['functionChinese']),
+    "Describtion" => array("Abstract" => $_POST['functionDescription'],
+      "Links" => array() ),
+  "SourceCode" => $sourceCodeJson,
+  "Category" => $tagJson,
+  "DataSet" => array($dataSetJson),
+  "EnvPackage" => $packageJson,
+  "CanExecute" => $CanExecute,
+  "InputType" => $_POST['inputFormat'],      
+    "OutputType" => $_POST['outputFormat'],
+    "NeedParameter" => $NeedParameter,
+    "Parameter" => array($paremeterJson));
+    $json = json_encode($json, JSON_UNESCAPED_UNICODE);
+            
+    //上傳json檔案
+    $uploaddir = 'json/';
+$uploadfile = $uploaddir.basename($algorithmID.'json');
+
+
+if(file_exists(iconv("utf-8", "big5", $uploadfile)))
+{
+  // echo "<script>alert('檔案已存在！');</script>";
+  // echo "<script>location.href='index.php?item=NewMethod';</script>";
+}else
+{
+   if (move_uploaded_file($_FILES['myfile']['tmp_name'], iconv("utf-8", "big5", $uploadfile))) 
+ {
+
+ }
+ else 
+ {
+     // echo "<script>alert('檔案上傳失敗！');</script>";
+     // echo "<script>location.href='index.php?item=NewMethod';</script>";
+ }
+}
 	        
 
 	        //傳送email給老師
