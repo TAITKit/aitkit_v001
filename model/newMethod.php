@@ -84,27 +84,51 @@ $praetor = new Praetor();
    $n = $n + 1;
   }
 
-  $packageLenth = strlen($_POST['systemEnvironment']);
+  $envLenth = strlen($_POST['systemEnvironment']);
   $n = 0;
-  $package = '';
-  $packageJson = array();
-  while ($n < $$packageLenth) {
+  $env = '';
+  $envPackageJson = array();
+  while ($n < $envLenth) {
    if ($_POST['systemEnvironment'][$n] != ',')
    {
-     $package = $package.$_POST['systemEnvironment'][$n];
+     $env = $env.$_POST['systemEnvironment'][$n];
    }
    else if ($_POST['systemEnvironment'][$n] == ',')
    {
-      $packageJson[] = $package;
+      $envPackageJson[] = $env;
+      $env = '';
+   }
+   if ($n == $envLenth - 1)
+   {
+      $envPackageJson[] = $env;
+      $env = '';
+   }
+   $n = $n + 1;
+  }
+
+  $packageLenth = strlen($_POST['package']);
+  $n = 0;
+  $package = '';
+  
+  while ($n < $packageLenth) {
+   if ($_POST['package'][$n] != ',')
+   {
+     $package = $package.$_POST['package'][$n];
+   }
+   else if ($_POST['package'][$n] == ',')
+   {
+      $envPackageJson[] = $package;
       $package = '';
    }
    if ($n == $packageLenth - 1)
    {
-      $packageJson[] = $package;
+      $envPackageJson[] = $package;
       $package = '';
    }
    $n = $n + 1;
   }
+
+  
 
 	$licenseKey = strtoupper($_SESSION['user']['PMName'][0].substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], '-') + 1, 1).substr($_SESSION['user']['PMName'], strpos($_SESSION['user']['PMName'], ' ') + 1));
 	if (strpos($_POST['titleAbbre'], ' ')  !== false)
@@ -181,36 +205,20 @@ $praetor = new Praetor();
       "Links" => array() ),
   "SourceCode" => $sourceCodeJson,
   "Category" => $tagJson,
-  "DataSet" => array($dataSetJson),
-  "EnvPackage" => $packageJson,
+  "DataSet" => $dataSetJson,
+  "EnvPackage" => $envPackageJson,
   "CanExecute" => $CanExecute,
   "InputType" => $_POST['inputFormat'],      
     "OutputType" => $_POST['outputFormat'],
     "NeedParameter" => $NeedParameter,
-    "Parameter" => array($paremeterJson));
+    "Parameter" => $paremeterJson);
     $json = json_encode($json, JSON_UNESCAPED_UNICODE);
-            
-    //上傳json檔案
-    $uploaddir = 'json/';
-$uploadfile = $uploaddir.basename($algorithmID.'json');
 
+           //上傳json檔案 
+    $myfile = fopen('json/'.$algorithmID.'_'.$_POST['titleAbbre'].'.json', "w");
+fwrite($myfile, $json);
+fclose($myfile);
 
-if(file_exists(iconv("utf-8", "big5", $uploadfile)))
-{
-  // echo "<script>alert('檔案已存在！');</script>";
-  // echo "<script>location.href='index.php?item=NewMethod';</script>";
-}else
-{
-   if (move_uploaded_file($_FILES['myfile']['tmp_name'], iconv("utf-8", "big5", $uploadfile))) 
- {
-
- }
- else 
- {
-     // echo "<script>alert('檔案上傳失敗！');</script>";
-     // echo "<script>location.href='index.php?item=NewMethod';</script>";
- }
-}
 	        
 
 	        //傳送email給老師
