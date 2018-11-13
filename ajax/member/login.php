@@ -2,8 +2,8 @@
 	session_start();
 	include('../../model/ajax_model.php');
 	$praetor = new Praetor();
-	$sql = "SELECT * FROM pmanager WHERE PID=%d_PID AND Password =%s_Password";
-	$data = $praetor->custosql($sql, array('PID'=>$_POST['PhoneNumber'], 'Password'=>$_POST['password']));
+	$sql = "SELECT * FROM pmanager WHERE PhoneNumber=%s_PhoneNumber AND Password =%s_Password";
+	$data = $praetor->custosql($sql, array('PhoneNumber'=>$_POST['phoneNumber'], 'Password'=>$_POST['password']));
 	
 	if($data[0] != ""){
 		$_SESSION['user'] = $data[0];
