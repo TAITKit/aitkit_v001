@@ -20,6 +20,12 @@ if($_SESSION['user'] == ""){
 		case "Register":
 			include('view/register.html');
 		break;
+		case "forgetPassword":
+			include('view/forgetPassword.html');
+		break;
+		case "changePassword":
+			include('view/changePassword.html');
+		break;
 		
 		default:
 		break;
