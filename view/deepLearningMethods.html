@@ -9,7 +9,7 @@ body {
 
 .sidenav {
     height: 93%;
-    width: 200px;
+    width: 300px;
     position: fixed;
     
     top: 48px;
@@ -48,7 +48,7 @@ body {
 }
 
 .main {
-    margin-left: 200px; /* Same as the width of the sidenav */
+    margin-left: 300px; /* Same as the width of the sidenav */
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
@@ -116,9 +116,14 @@ button {
                   
                   <option class="tag All" value="All">All</option>
                   <?php
+                      //option 是下拉式選單中的選項，這邊做的是把所有的tag值顯示在下拉式選單裡
                       $praetor = new Praetor();
                       $sql = "SELECT tagName FROM tag GROUP BY tagName";
+                      //從url讀取tag的值
                       $selectedTag = $_GET['tag'];
+                      
+                      //custosql定義在cls/Praetor.cls.php裡
+                      //參數中的array()是空陣列，要是query中有where的話就把欄位名丟進array裡
                       $data = $praetor->custosql($sql, array());
 
                       foreach ($data as $key => $value) {
@@ -154,6 +159,9 @@ button {
   <!--for search select-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
+    //當網頁load進來時只會跑一次ready的function，要做的事情是把<div class="list">和<div class="main">清空
+    //<div class="list">放的是下拉式選單選到的屬於某個tag的全部的演算法標題，EX:顯示所有屬於NLP tag的演算法標題
+    //<div class="main">放的是選到的演算法內容，從上面的list可以選擇特定的演算法
     $(document).ready(function(){
       $(".main").empty();
           $.ajax({
@@ -163,7 +171,7 @@ button {
           restful:true,
           cache:false,
           success: function(data){
-            $(".main").append(data);
+            $(".main").append(data);//當沒有錯誤時，把回傳的data append到class 名為main的html裡面(即<div class="main">)，這邊的data存的是html的碼，showContent.php會從資料庫抓abbre=$(".showAbbre").val()，即標題簡寫=class showAbbre的value，而showAbbre的value是抓url裡的abbre($_GET['abbre'])
           },
           error: function (error) {
             alert('error');
@@ -179,7 +187,7 @@ button {
           restful:true,
           cache:false,
           success: function(data){
-            $(".list").append(data);
+            $(".list").append(data);//當沒有錯誤時，把回傳的data append到class 名為list的html裡面(即<div class="list">)，這邊的data存的是html的碼，showList.php會從資料庫抓tagName=$(".tagSelected").val()，即下拉式選單選到的tag值
           },
           error: function (error) {
             alert('error');
@@ -196,7 +204,7 @@ button {
           restful:true,
           cache:false,
           success: function(data){
-            $(".list").append(data);
+            $(".list").append(data);//跟上面一樣，只是這邊是當下拉式選單的值change(同function名)的時候會執行的function
           },
           error: function (error) {
             alert('error');
@@ -207,7 +215,7 @@ button {
 
     jQuery_1_5_1('.title').live('mouseover mouseout',function(event){
       if (event.type == "mouseover"){
-      $('#tt').remove(); // remove any tagit div first
+      $('#tt').remove(); // 從html中移除id名為tt的元素
       $('.main').append('<label id="tt" style="background-color:#ffffdf;">'+$(this).attr('abbre')+'</label>');
       $('#tt').offset({top:event.pageY,left:event.pageX+100});
       $('#tagname').focus();
