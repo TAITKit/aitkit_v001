@@ -31,3 +31,7 @@
 送出form後會在model/newAlgorithm.php把form存到資料庫並在該頁面顯示修改後的資訊
 
 按下導覽列的"Logout"會清空存在$_SESSION['user']裡的值並跳回index.php
+
+
+//----
+testtest
