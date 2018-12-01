@@ -7,8 +7,9 @@
     $praetor = new Praetor();
     $sql = "SELECT * FROM algorithm WHERE Abbreviation=%s_Abbreviation";
     $data = $praetor->custosql($sql, array('Abbreviation'=>$_POST['abbre']));
-    echo '<fieldset>
-      <legend>程式名稱:</legend>
+    echo '<legend>程式名稱:</legend>
+    <fieldset>
+      
   <div>
                               <label for="issueinput1">簡寫:</label>
                               <label>'.$data[0]['Abbreviation'].'</label>
@@ -18,8 +19,9 @@
                               <label>'.$data[0]['AlgorithmTitle'].'</label>
                           </div>
                           </fieldset>
+                          <legend>作者/單位:</legend>
                           <fieldset>
-      <legend>作者/單位:</legend>
+      
   <div>
                               <label for="issueinput1">作者英文名:</label>
                               <label>'.$data[0]['authorName'].'</label>
@@ -29,8 +31,9 @@
                               <label>'.$data[0]['authorUnit'].'</label>
                           </div>
                           </fieldset>
+                          <legend>程式功能:</legend>
                           <fieldset>
-      <legend>程式功能:</legend>
+      
   <div>
                               <label for="issueinput1">英文:</label>
                               <label>'.$data[0]['functionEnglish'].'</label>
@@ -40,15 +43,17 @@
                               <label>'.$data[0]['functionChinese'].'</label>
                           </div>
                           </fieldset>
+                                <legend>程式功能說明-文字描述(中英文皆可)</legend>
                           <fieldset>
-      <legend>程式功能說明-文字描述(中英文皆可)</legend>
+
   <div>
-    <textarea>'.$data[0]['functionDescription'].'</textarea>
+    '.$data[0]['functionDescription'].'
                           </div>
                          
                           </fieldset>
+                          <legend>程式源碼:</legend>
                           <fieldset>
-      <legend>程式源碼:</legend>
+      
   <div>
                               <a href="'.$data[0]['GitHub'].'">'.$data[0]['GitHub'].'</a>
                           </div>
